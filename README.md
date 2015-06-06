@@ -1,7 +1,7 @@
-## asl
+# asl
 
 LiveSplit ASL scripts for load removal and autosplitting for various PC games.
 
-# Supported Games
+## Supported Games
 
 - Judge Dredd: Dredd vs. Death
