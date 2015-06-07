@@ -1,6 +1,6 @@
-state("Fallout NV")
+state("FalloutNV")
 {
-    byte isLoading : "FalloutNV.exe", 0xDDCFB1;
+    byte isLoading : "FalloutNV.exe", 0xDDA4EC;
 }
 
 start
@@ -17,5 +17,5 @@ split
 
 isLoading
 {
-    return current.isLoading != 0;
+    return current.isLoading;
 }
