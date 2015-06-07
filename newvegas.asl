@@ -17,5 +17,5 @@ split
 
 isLoading
 {
-    return current.isLoading;
+    return current.isLoading != 0;
 }
