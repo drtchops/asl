@@ -1,7 +1,7 @@
 state("Dredd")
 {
     int chapterNumber : "Dredd.exe", 0x21410C;
-    byte isLoading : "Dredd.exe", 0x240A5C, 0xC;
+    bool isLoading : "Dredd.exe", 0x240A5C, 0xC;
 }
 
 start
@@ -19,5 +19,5 @@ split
 
 isLoading
 {
-    return current.isLoading != 0;
+    return current.isLoading;
 }
