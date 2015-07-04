@@ -22,3 +22,4 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Dragon Age 2
 - Fallout: New Vegas
 - Judge Dredd: Dredd vs. Death
+- The Elder Scrolls V: Skyrim (used for Anthology runs)
