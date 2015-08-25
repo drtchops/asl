@@ -24,4 +24,5 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Fallout: New Vegas
 - Judge Dredd: Dredd vs. Death
 - Mass Effect
+- Resident Evil 4 (by LetsGetPitted)
 - The Elder Scrolls V: Skyrim (used for Anthology runs)
