@@ -2,7 +2,7 @@ state("bio4")
 {
 	int startGame : "bio4.exe", 0x0e3b760;
 	int isEndOfChapter : "bio4.exe", 0x0864311;
-	int finalCutscene : "bio4.exe", 0xE77DEC, 0x178, 0xF0, 0x210;
+	int finalCutscene : "bio4.exe", 0x12FB2E6;
 	byte isPaused : "bio4.exe", 0x856F01;
 	byte reset : "bio4.exe", 0x856DF2;
 }
@@ -14,7 +14,7 @@ start
 
 reset
 {
-	return old.reset == 0 && current.reset == 1;
+	return old.reset != 1 && current.reset == 1;
 }
 
 split
