@@ -15,6 +15,7 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Antivirus programs love to give false positives. Exclude the entire LiveSplit folder.
 - Make sure there's only one process of your game open. Kill any extra ones that may be in the background with task manager.
 - Running livesplit as admin could help.
+- Make sure .NET 4.5 is installed: https://www.microsoft.com/en-ca/download/details.aspx?id=30653
 - If all else fails, reboot.
 
 ## Supported Games
