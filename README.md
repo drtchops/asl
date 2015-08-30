@@ -21,6 +21,7 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 ## Supported Games
 
 - Dragon Age 2
+- Fallout Anthology
 - Fallout 3
 - Fallout: New Vegas
 - Judge Dredd: Dredd vs. Death
