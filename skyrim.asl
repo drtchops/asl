@@ -4,6 +4,14 @@ state("TESV")
     bool isLoadingScreen : "TESV.exe", 0xEE3561;
 }
 
+update
+{
+    // temporary fix until ASL initializes game time on manual start
+    if (!timer.IsGameTimeInitialized) {
+        timer.IsGameTimeInitialized = true;
+    }
+}
+
 isLoading
 {
     return current.isLoading || current.isLoadingScreen;
