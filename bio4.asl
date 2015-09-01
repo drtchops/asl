@@ -1,28 +1,34 @@
 state("bio4")
 {
-	int startGame : "bio4.exe", 0x0e3b760;
-	int isEndOfChapter : "bio4.exe", 0x0864311;
-	int finalCutscene : "bio4.exe", 0x12FB2E6;
-	byte isPaused : "bio4.exe", 0x856F01;
-	byte reset : "bio4.exe", 0x856DF2;
+	int isEndOfChapter : "bio4.exe", 0x864311;
+	uint igt : "bio4.exe", 0x85BE84;
+	uint finalIGT : "bio4.exe", 0xE7A9BC;
 }
 
 start
 {
-	return (current.startGame == 1 && old.startGame == 0);
+	return current.igt > old.igt;
 }
 
 reset
 {
-	return old.reset != 1 && current.reset == 1;
-}
-
-split
-{
-	return ((current.isEndOfChapter - old.isEndOfChapter) == 1) || (old.finalCutscene == 1 && current.finalCutscene == 0);
+	return current.igt == 0;
 }
 
 isLoading
 {
-	return current.isPaused == 1;
+	return false;
+}
+
+gameTime
+{
+	if (current.igt != old.igt || current.igt == current.finalIGT)
+	{
+		return TimeSpan.FromSeconds(current.igt);
+	}
+}
+
+split
+{
+	return (current.isEndOfChapter - old.isEndOfChapter == 1) || (current.igt == current.finalIGT && old.finalIGT != current.finalIGT);
 }
