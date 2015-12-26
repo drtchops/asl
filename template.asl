@@ -1,6 +1,17 @@
 state("game")
 {
-    bool isLoading : "game.exe", 0xDEADBEEF;
+    bool isLoading : 0xDEADBEEF;
+}
+
+init
+{
+    // pause game time on crash / exit
+    timer.IsGameTimePaused = false;
+    game.Exited += (s, e) => timer.IsGameTimePaused = true;
+}
+
+update
+{
 }
 
 start

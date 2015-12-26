@@ -1,8 +1,8 @@
 state("bio4")
 {
-	int isEndOfChapter : "bio4.exe", 0x864311;
-	uint igt : "bio4.exe", 0x85BE84;
-	uint finalIGT : "bio4.exe", 0xE7A9BC;
+	int isEndOfChapter : 0x864311;
+	uint igt : 0x85BE84;
+	uint finalIGT : 0xE7A9BC;
 }
 
 start

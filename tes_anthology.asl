@@ -18,7 +18,7 @@ state("Oblivion")
     // TES 4: Oblivion, unknown version
 }
 
-state("Oblivion", "1.0")
+state("Oblivion", "1.0.228")
 {
     // TES 4: Oblivion, original version
     // version 1.0.228
@@ -32,7 +32,7 @@ state("Oblivion", "1.0")
     uint spiesScroll2 : 0x6DB898;
 }
 
-state("Oblivion", "1.2")
+state("Oblivion", "1.2.0416")
 {
     // TES 4: Oblivion, steam version
     // version 1.2.0416
@@ -56,22 +56,7 @@ init
         vars.dontLoad = 0;
         vars.mapTravel = 0;
 
-        switch (modules.First().FileVersionInfo.FileVersion) {
-            case "1.0.228":
-                version = "1.0";
-                break;
-            case "1.2.0416":
-                version = "1.2";
-                break;
-        }
-    }
-}
-
-update
-{
-    // temporary fix until ASL initializes game time on manual start
-    if (!timer.IsGameTimeInitialized) {
-        timer.IsGameTimeInitialized = true;
+        version = modules.First().FileVersionInfo.FileVersion
     }
 }
 

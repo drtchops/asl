@@ -20,14 +20,6 @@ state("FalloutNV")
     bool isLoading : 0xDDA4EC;
 }
 
-update
-{
-    // temporary fix until ASL initializes game time on manual start
-    if (!timer.IsGameTimeInitialized) {
-        timer.IsGameTimeInitialized = true;
-    }
-}
-
 isLoading
 {
     if (timer.CurrentSplit.Name.ToLower().Contains("setup")) {
