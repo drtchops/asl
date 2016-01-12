@@ -20,6 +20,7 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 
 ## Supported Games
 
+- Dragon Age: Origins (by Letterswords)
 - Dragon Age 2
 - Fallout Anthology
 - Fallout 3
