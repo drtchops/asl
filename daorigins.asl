@@ -8,9 +8,20 @@ init
 {
     timer.IsGameTimePaused = false;
     game.Exited += (s, e) => timer.IsGameTimePaused = true;
+
+    vars.preFirstLoad = true;
+    vars.isLoading = true;
+}
+
+update
+{
+    vars.isLoading = current.isLoading || current.isLoadingScreen;
+    if (vars.preFirstLoad && vars.isLoading) {
+        vars.preFirstLoad = false;
+    }
 }
 
 isLoading
 {
-    return current.isLoading || current.isLoadingScreen;
+    return vars.preFirstLoad || vars.isLoading;
 }
