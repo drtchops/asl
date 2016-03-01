@@ -6,7 +6,10 @@ state("Dredd")
 
 split
 {
-    return current.chapterNumber != 12 && current.chapterNumber > old.chapterNumber;
+    return (
+        current.chapterNumber != 12 &&
+        current.chapterNumber > old.chapterNumber
+    );
 }
 
 isLoading

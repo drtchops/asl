@@ -28,8 +28,6 @@ state("Oblivion", "1.0.228")
     bool gamePaused : 0x07480BC;
     bool midSpeech : 0x06E4C08;
     bool isWaiting : 0x6BE410;
-    uint spiesScroll : 0x6EA094;
-    uint spiesScroll2 : 0x6DB898;
 }
 
 state("Oblivion", "1.2.0416")
@@ -53,10 +51,14 @@ state("TESV")
 init
 {
     if (game.ProcessName == "Oblivion") {
-        vars.dontLoad = 0;
-        vars.mapTravel = 0;
+        version = modules.First().FileVersionInfo.FileVersion;
 
-        version = modules.First().FileVersionInfo.FileVersion
+        vars.dontLoad = false;
+        vars.mapTravel = false;
+        vars.guardWarp = false;
+        vars.guardWarp2 = false;
+    } else {
+        version = '';
     }
 }
 
@@ -65,47 +67,44 @@ isLoading
     if (timer.CurrentSplit.Name.ToLower().Contains("setup")) {
         return true;
 
-    } else if (game.ProcessName == "Oblivion" && version == "1.0") {
-        bool b = (current.isLoading && current.notTalking && vars.dontLoad == 0) || current.isWaiting;
-        if (current.midSpeech || (current.spiesScroll == 1 && current.spiesScroll2 == 654430032))
-        {
-            vars.dontLoad = 1;
-            vars.mapTravel = 0;
+    } else if (game.ProcessName == "Oblivion") {
+        vars.isLoading = (current.isLoadingScreen && current.notTalking && !vars.dontLoad) || current.isWaiting;
+        if (version == "1.0.228") {
+            // load pointer breaks when you start a conversation
+            if (current.midSpeech) {
+                vars.dontLoad = true;
+                vars.mapTravel = false;
+                vars.guardWarp2 = false;
+            }
+            if (current.isLoadingScreen && current.gamePaused && vars.dontLoad) {
+                vars.mapTravel = true;
+                vars.guardWarp = true;
+            }
+            if ((!current.isLoadingScreen && !current.gamePaused) || (current.gamePaused && !current.isLoadingScreen && vars.mapTravel)) {
+                vars.dontLoad = false;
+                vars.guardWarp = false;
+            }
+            if (vars.guardWarp && !current.gamePaused) {
+                vars.guardWarp2 = true;
+            }
+            if (vars.guardWarp2 && current.isLoadingScreen && current.gamePaused) {
+                vars.dontLoad = false;
+            }
+        } else {
+            if (current.isLoadingScreen && !current.notTalking) {
+                vars.dontLoad = true;
+                vars.mapTravel = false;
+            }
+            if (current.isLoadingScreen && !current.notPaused && vars.dontLoad && current.notTalking) {
+                vars.mapTravel = true;
+            }
+            if (vars.mapTravel && !current.notPaused && !current.isLoadingScreen || (current.notTalking && !current.isLoadingScreen)) {
+                vars.dontLoad = false;
+            }
+            if (!current.isLoadingScreen && current.notPaused) {
+                vars.dontLoad = false;
+            }
         }
-        if (current.isLoading && current.gamePaused && vars.dontLoad == 1)
-        {
-            vars.mapTravel = 1;
-        }
-        if (vars.mapTravel == 1 && current.gamePaused && !current.isLoading || (current.notTalking && !current.isLoading && vars.dontLoad == 1))
-        {
-            vars.dontLoad = 0;
-        }
-        if (!current.isLoading && !current.gamePaused)
-        {
-            vars.dontLoad = 0;
-        }
-        return b;
-
-    } else if (game.ProcessName == "Oblivion" && version == "1.2") {
-        bool b = (current.isLoading && current.notTalking && vars.dontLoad == 0) || current.isWaiting;
-        if (current.isLoading && !current.notTalking)
-        {
-            vars.dontLoad = 1;
-            vars.mapTravel = 0;
-        }
-        if (current.isLoading && !current.notPaused && vars.dontLoad == 1 && current.notTalking)
-        {
-            vars.mapTravel = 1;
-        }
-        if (vars.mapTravel == 1 && !current.notPaused && !current.isLoading || (current.notTalking && !current.isLoading))
-        {
-            vars.dontLoad = 0;
-        }
-        if (!current.isLoading && current.notPaused)
-        {
-            vars.dontLoad = 0;
-        }
-        return b;
 
     } else if (game.ProcessName == "TESV") {
         return current.isLoading || current.isLoadingScreen;

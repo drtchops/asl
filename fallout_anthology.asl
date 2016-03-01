@@ -20,7 +20,7 @@ state("FalloutNV")
     bool isLoading : 0xDDA4EC;
 }
 
-state("Fallout4")
+state("Fallout4", "v1.1.30")
 {
     // Fallout 4 v1.1
     bool isLoadingScreen : 0x6FB1524;
@@ -29,27 +29,39 @@ state("Fallout4")
     byte isWaiting : 0x704329B;
 }
 
-state("Fallout4", "v1.2.33")
-{
-    // Fallout 4 v1.2
-    bool isLoadingScreen : 0x6FB2524;
-    bool isQuickloading : 0x44BC958;
-    bool isCellTransitionLoad : 0x6CC93D8;
-    byte isWaiting : 0x704429B;
-}
-
 init
 {
     if (game.ProcessName == "Fallout4") {
-        switch (modules.First().ModuleMemorySize) {
-            case 132591616:
-                version = "v1.2.33";
-                break;
+        if (modules.First().ModuleMemorySize == 132587520) {
+            version = "v1.1.30";
+        }
+
+        if (string.IsNullOrEmpty(version)) {
+            var decision = System.Windows.Forms.MessageBox.Show(
+                timer.Form,
+                "Incompatible game version. (ModuleMemorySize: " +
+                modules.First().ModuleMemorySize.ToString() +
+                ")\n\n" +
+                "This load remover is compatible only with v1.1.30.\n" +
+                "Visit speedrun.com/Fallout_4/forum to get this version.\n\n" +
+                "Do you want to open the link?",
+                "Fallout 4 Load Remover",
+                System.Windows.Forms.MessageBoxButtons.YesNo,
+                System.Windows.Forms.MessageBoxIcon.Error
+            );
+
+            if (decision == System.Windows.Forms.DialogResult.Yes) {
+                System.Diagnostics.Process.Start("http://www.speedrun.com/Fallout_4/thread/fvo80");
+            }
         }
     }
 
     timer.IsGameTimePaused = false;
-    game.Exited += (s, e) => timer.IsGameTimePaused = true;
+}
+
+exit
+{
+    timer.IsGameTimePaused = true;
 }
 
 isLoading

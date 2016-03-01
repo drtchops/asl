@@ -7,10 +7,14 @@ state("DAOrigins")
 init
 {
     timer.IsGameTimePaused = false;
-    game.Exited += (s, e) => timer.IsGameTimePaused = true;
 
     vars.preFirstLoad = true;
     vars.isLoading = true;
+}
+
+exit
+{
+    timer.IsGameTimePaused = true;
 }
 
 update
