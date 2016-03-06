@@ -18,7 +18,7 @@ state("Oblivion")
     // TES 4: Oblivion, unknown version
 }
 
-state("Oblivion", "1.0.228")
+state("Oblivion", "1.0")
 {
     // TES 4: Oblivion, original version
     // version 1.0.228
@@ -30,7 +30,7 @@ state("Oblivion", "1.0.228")
     bool isWaiting : 0x6BE410;
 }
 
-state("Oblivion", "1.2.0416")
+state("Oblivion", "1.2")
 {
     // TES 4: Oblivion, steam version
     // version 1.2.0416
@@ -52,13 +52,20 @@ init
 {
     if (game.ProcessName == "Oblivion") {
         version = modules.First().FileVersionInfo.FileVersion;
+        if (version == "1.0.228") {
+            version = "1.0";
+        } else if (version == "1.2.0416") {
+            version = "1.2";
+        } else {
+            version = "";
+        }
 
         vars.dontLoad = false;
         vars.mapTravel = false;
         vars.guardWarp = false;
         vars.guardWarp2 = false;
     } else {
-        version = '';
+        version = "";
     }
 }
 
@@ -67,9 +74,9 @@ isLoading
     if (timer.CurrentSplit.Name.ToLower().Contains("setup")) {
         return true;
 
-    } else if (game.ProcessName == "Oblivion") {
+    } else if (game.ProcessName == "Oblivion" && version != "") {
         vars.isLoading = (current.isLoadingScreen && current.notTalking && !vars.dontLoad) || current.isWaiting;
-        if (version == "1.0.228") {
+        if (version == "1.0") {
             // load pointer breaks when you start a conversation
             if (current.midSpeech) {
                 vars.dontLoad = true;

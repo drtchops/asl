@@ -8,6 +8,11 @@ state("FALLOUT2")
     // Fallout 2 (no vars)
 }
 
+state("BOS")
+{
+    // lmao good joke
+}
+
 state("Fallout3")
 {
     // Fallout 3
@@ -55,8 +60,6 @@ init
             }
         }
     }
-
-    timer.IsGameTimePaused = false;
 }
 
 exit

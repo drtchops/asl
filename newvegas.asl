@@ -3,11 +3,6 @@ state("FalloutNV")
     bool isLoading : 0xDDA4EC;
 }
 
-init
-{
-    timer.IsGameTimePaused = false;
-}
-
 exit
 {
     timer.IsGameTimePaused = true;

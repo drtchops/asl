@@ -6,8 +6,6 @@ state("DAOrigins")
 
 init
 {
-    timer.IsGameTimePaused = false;
-
     vars.preFirstLoad = true;
     vars.isLoading = true;
 }

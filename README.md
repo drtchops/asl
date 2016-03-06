@@ -29,3 +29,4 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Mass Effect
 - Resident Evil 4 (by LetsGetPitted)
 - The Elder Scrolls: Anthology
+- The Elder Scrolls III: Morrowind (by Fatalis and me)

@@ -1,4 +1,9 @@
-state("Oblivion", "1.0.228")
+state("Oblivion")
+{
+    // TES 4: Oblivion, unknown version
+}
+
+state("Oblivion", "1.0")
 {
     // TES 4: Oblivion, original version
     // version 1.0.228
@@ -12,7 +17,7 @@ state("Oblivion", "1.0.228")
     // uint spiesScroll2 : 0x6DB898;
 }
 
-state("Oblivion", "1.2.0416")
+state("Oblivion", "1.2")
 {
     // TES 4: Oblivion, steam version
     // version 1.2.0416
@@ -26,11 +31,16 @@ state("Oblivion", "1.2.0416")
 init
 {
     version = modules.First().FileVersionInfo.FileVersion;
+    if (version == "1.0.228") {
+        version = "1.0";
+    } else if (version == "1.2.0416") {
+        version = "1.2";
+    } else {
+        version = "";
+    }
 
     vars.prevPhase = timer.CurrentPhase;
-
-    timer.IsGameTimePaused = false;
-
+    vars.isLoading = false;
     vars.dontLoad = false;
     vars.mapTravel = false;
     vars.guardWarp = false;
@@ -44,6 +54,11 @@ exit
 
 update
 {
+    if (version == "") {
+        // unsupported version
+        return;
+    }
+
     if (timer.CurrentPhase == TimerPhase.Running && vars.prevPhase == TimerPhase.NotRunning) {
         vars.dontLoad = false;
         vars.mapTravel = false;
@@ -53,7 +68,7 @@ update
     vars.prevPhase = timer.CurrentPhase;
 
     vars.isLoading = (current.isLoadingScreen && current.notTalking && !vars.dontLoad) || current.isWaiting;
-    if (version == "1.0.228") {
+    if (version == "1.0") {
         // load pointer breaks when you start a conversation
         if (current.midSpeech) {
             vars.dontLoad = true;
