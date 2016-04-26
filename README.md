@@ -27,7 +27,9 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Fallout: New Vegas
 - Judge Dredd: Dredd vs. Death
 - Mass Effect
+- Penumbra: Black Plague
 - Resident Evil 4 (by LetsGetPitted)
 - Rot Gut
 - The Elder Scrolls: Anthology
 - The Elder Scrolls III: Morrowind (by Fatalis and me)
+- The Elder Scrolls IV: Oblivion (by TheFuncanon and me)
