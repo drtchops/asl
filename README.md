@@ -28,4 +28,5 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Judge Dredd: Dredd vs. Death
 - Mass Effect
 - Resident Evil 4 (by LetsGetPitted)
+- Rot Gut
 - The Elder Scrolls: Anthology
