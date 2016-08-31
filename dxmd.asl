@@ -4,10 +4,16 @@ state("DXMD", "1, 1, 524, 7")
     bool isLoading : 0x2E7FEE0, 0x34;
 }
 
-state("DXMD")
+state("DXMD", "1, 1, 524, 10")
 {
     // 524.10 - day 3 patch
     bool isLoading : 0x2DBA720;
+}
+
+state("DXMD", "1, 2, 524, 15")
+{
+    // 524.15 - day 7 patch
+    bool isLoading : 0x2DBC6A0;
 }
 
 init
