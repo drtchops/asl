@@ -20,6 +20,7 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 
 ## Supported Games
 
+- Bioshock Trilogy (by MrWalrus, Glurmo, Dread, and me)
 - Deus Ex: Mankind Divided
 - Doom (2016) (by a lot of people)
 - Dragon Age: Origins (by Letterswords)
