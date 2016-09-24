@@ -50,7 +50,7 @@ state("DOOMx64vk", "6, 1, 1, 808")
 state("DOOMx64", "6, 1, 1, 920")
 {
     bool isLoading: 0x3236CD0;
-    string42 mapName: "steam_api64.dll", 0x387B0, 0x310, 0x300, 0x117
+    string42 mapName: "steam_api64.dll", 0x387B0, 0x310, 0x300, 0x117;
 }
 
 state("DOOMx64vk", "6, 1, 1, 920")
@@ -63,7 +63,7 @@ state("DOOMx64vk", "6, 1, 1, 920")
 init
 {
     version = modules.First().FileVersionInfo.FileVersion;
-    print(version);
+    //print(version);
 }
 
 exit
