@@ -3,6 +3,7 @@
 // TheFuncannon
 // loitho
 // sychotixx
+// Instagibz
 // probably more
 
 state("DOOMx64", "6, 1, 1, 527")
@@ -46,10 +47,23 @@ state("DOOMx64vk", "6, 1, 1, 808")
     string35 mapName: "tier0_s64.dll", 0x4D130, 0x17;
 }
 
+state("DOOMx64", "6, 1, 1, 920")
+{
+    bool isLoading: 0x3236CD0;
+    string42 mapName: "steam_api64.dll", 0x387B0, 0x310, 0x300, 0x117
+}
+
+state("DOOMx64vk", "6, 1, 1, 920")
+{
+    bool isLoading: "DOOMx64vk.exe", 0x4932E80;
+    string42 mapName: "steam_api64.dll", 0x387B0, 0x590, 0x300, 0x157;
+}
+
+
 init
 {
     version = modules.First().FileVersionInfo.FileVersion;
-    // print(version);
+    print(version);
 }
 
 exit
@@ -90,7 +104,7 @@ split
             !current.finalHit &&
             current.bossHealth == 1
         );
-    } else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 808") {
+    } else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 808" || version == "6, 1, 1, 920") {
         return (
             !String.IsNullOrEmpty(current.mapName) &&
             !String.IsNullOrEmpty(old.mapName) &&
