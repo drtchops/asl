@@ -50,13 +50,13 @@ state("DOOMx64vk", "6, 1, 1, 808")
 state("DOOMx64", "6, 1, 1, 920")
 {
     bool isLoading: 0x3236CD0;
-    string42 mapName: "steam_api64.dll", 0x387B0, 0x310, 0x300, 0x117;
+    string42 mapName: "tier0_s64.dll", 0x4D170, 0x17;
 }
 
 state("DOOMx64vk", "6, 1, 1, 920")
 {
     bool isLoading: "DOOMx64vk.exe", 0x4932E80;
-    string42 mapName: "steam_api64.dll", 0x387B0, 0x590, 0x300, 0x157;
+    string35 mapName: "tier0_s64.dll", 0x4D170, 0x17;
 }
 
 
