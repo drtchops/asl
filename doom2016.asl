@@ -7,9 +7,9 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
-//Instagibz		@30\09\16:	Added auto-end to 6,1,1,706 also changed auto-start, was broken for me a few times
+//Instagibz	@30\09\16:	Added auto-end to 6,1,1,706 also changed auto-start, was broken for me a few times
 //TheFuncannon	@30\09\16:	Updated the OGL version 6,1,1,706 to auto-start 
-//Instagibz		@30\09\16:	Updated the vulkan and OGL version 6,1,1,920 to auto-start, auto-split and auto-end the run. Requires 13 splits	
+//Instagibz	@30\09\16:	Updated the vulkan and OGL version 6,1,1,920 to auto-start, auto-split and auto-end the run. Requires 13 splits	
 //===NOTES AND CHANGELOG===//
 
 state("DOOMx64", "6, 1, 1, 527") {
