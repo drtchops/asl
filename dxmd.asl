@@ -40,10 +40,16 @@ state("DXMD", "1, 7, 551, 7")
     bool isLoading : 0x2DC91B0;
 }
 
-state("DXMD")
+state("DXMD", "1, 8, 565, 4")
 {
     // 1.8.565.4 - 2016-10-03 patch
     bool isLoading : 0x2DF02A0;
+}
+
+state("DXMD")
+{
+    // 1.9.582.1 - 2016-10-08 patch
+    bool isLoading : 0x2DF3280;
 }
 
 init
