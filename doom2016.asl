@@ -7,9 +7,10 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
-//Instagibz		@30\09\16:	Added auto-end to 6,1,1,706 also changed auto-start, was broken for me a few times
+//Instagibz	@19\10\16:	Updated the splitter for latest 6,1,1,1012 version which added arcade mode
+//Instagibz	@30\09\16:	Added auto-end to 6,1,1,706 also changed auto-start, was broken for me a few times
 //TheFuncannon	@30\09\16:	Updated the OGL version 6,1,1,706 to auto-start 
-//Instagibz		@30\09\16:	Updated the vulkan and OGL version 6,1,1,920 to auto-start, auto-split and auto-end the run. Requires 13 splits 
+//Instagibz	@30\09\16:	Updated the vulkan and OGL version 6,1,1,920 to auto-start, auto-split and auto-end the run. Requires 13 splits 
 //===NOTES AND CHANGELOG===//
 
 state("DOOMx64", "6, 1, 1, 527") {
@@ -33,7 +34,7 @@ state("DOOMx64", "6, 1, 1, 706") {
 	// Here you need to spam the spacebar during loading screen
 	// bool isLoading: 0xB99B1E4;
 	
-	bool canStart: 0x297CF3A;// 0xB401C78; seems semi broken
+	bool canStart: 0x297CF3A;
 	bool start: 0x34C5304;
 	bool finalHit: 0x31D3F74;
 	float bossHealth: 0x31CC008, 0x30, 0x4E8, 0x2D8, 0x1B4;
@@ -68,6 +69,24 @@ state("DOOMx64vk", "6, 1, 1, 920") {
 	string35 mapName: "tier0_s64.dll", 0x4D170, 0x17;
 }
 
+state("DOOMx64", "6, 1, 1, 1012") {
+	float bossHealth: 0x0330D838, 0x30, 0x4E8, 0x2E0, 0x1B8; 
+	bool start: 0x362E9BC;
+	bool canStart: 0x2A4D304;
+	bool finalHit: 0x3315AF4;
+	bool isLoading: 0x3315690;
+	string35 mapName: "tier0_s64.dll", 0x4D170, 0x17;
+}
+
+state("DOOMx64vk", "6, 1, 1, 1012") {
+	float bossHealth: 0x04A0A918, 0x30, 0x4E8, 0x2E0, 0x1B8;
+	bool start: 0x4D2ED84;
+	bool canStart: 0x3059544;
+	bool finalHit: 0x4A12CE4;
+	bool isLoading: 0x4E47580;
+	string35 mapName: "tier0_s64.dll", 0x4D170, 0x17;
+}
+
 init {
 	version = modules.First().FileVersionInfo.FileVersion;
 	//print(version);
@@ -84,7 +103,7 @@ start {
 			current.canStart &&
 			current.mapName.StartsWith("intro")
 		);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012") {
 		// Start the timer only if it's not running
 		// Mapname contains The UAC, we're not loading anything,  We used to be in the intro and we're not anymore
 		return (
@@ -119,11 +138,6 @@ split {
 			!current.mapName.Contains("a boss")
 			);
 	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920") {
-		//used to fix buggy mapname which goes blank sometimes
-		if(current.mapName == "" && old.mapName != ""){ 
-		current.mapName = old.mapName; 
-		}
-
 		return (
 			!String.IsNullOrEmpty(current.mapName) &&
 			!String.IsNullOrEmpty(old.mapName) &&
