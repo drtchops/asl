@@ -7,7 +7,7 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
-//Instagibz	@19\10\16:	Updated the splitter for latest 6,1,1,1012 version which added arcade mode
+//Instagibz	@19\10\16:	Updated the splitter for latest 6,1,1,1012 version
 //Instagibz	@30\09\16:	Added auto-end to 6,1,1,706 also changed auto-start, was broken for me a few times
 //TheFuncannon	@30\09\16:	Updated the OGL version 6,1,1,706 to auto-start 
 //Instagibz	@30\09\16:	Updated the vulkan and OGL version 6,1,1,920 to auto-start, auto-split and auto-end the run. Requires 13 splits 
@@ -81,7 +81,7 @@ state("DOOMx64", "6, 1, 1, 1012") {
 state("DOOMx64vk", "6, 1, 1, 1012") {
 	float bossHealth: 0x04A0A918, 0x30, 0x4E8, 0x2E0, 0x1B8;
 	bool start: 0x4D2ED84;
-	bool canStart: 0x3059544;
+	bool canStart: 0x2A2F804;
 	bool finalHit: 0x4A12CE4;
 	bool isLoading: 0x4E47580;
 	string35 mapName: "tier0_s64.dll", 0x4D170, 0x17;
@@ -137,7 +137,7 @@ split {
 			!current.mapName.Contains("playing") &&
 			!current.mapName.Contains("a boss")
 			);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012") {
 		return (
 			!String.IsNullOrEmpty(current.mapName) &&
 			!String.IsNullOrEmpty(old.mapName) &&
