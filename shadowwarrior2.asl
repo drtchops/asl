@@ -1,6 +1,9 @@
-state("ShadowWarrior2", "1.1.1.0")
+// 1.1.1.0 - 2016-10-15
+// unknown pointer
+
+state("ShadowWarrior2", "1.1.2.0")
 {
-    // 1.1.1.0 - 2016-10-15
+    // 1.1.2.0 - 2016-10-15
     bool isGameplay : 0x1811908;
 }
 
