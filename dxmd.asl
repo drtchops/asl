@@ -1,72 +1,62 @@
-state("DXMD", "1, 1, 524, 7")
-{
-    // 1.1.524.7 - 2016-08-24 patch
-    bool isLoading : 0x2E7FEE0, 0x34;
-}
+state("DXMD") { }
 
-state("DXMD", "1, 1, 524, 10")
+startup
 {
-    // 1.1.524.10 - 2016-08-26 patch
-    bool isLoading : 0x2DBA720;
-}
+    // ptr: address of the offset (not the start of the instruction!)
+    // offsetSize: the number of bytes of the offset
+    // remainingBytes: the number of bytes until the end of the instruction (not including the offset bytes)
+    vars.ReadOffset = (Func<Process, IntPtr, int, int, IntPtr>)((proc, ptr, offsetSize, remainingBytes) =>
+    {
+        byte[] offsetBytes;
+        if (ptr == IntPtr.Zero || !proc.ReadBytes(ptr, offsetSize, out offsetBytes))
+            return IntPtr.Zero;
 
-state("DXMD", "1, 2, 524, 15")
-{
-    // 1.2.524.15 - 2016-08-30 patch
-    bool isLoading : 0x2DBC6A0;
-}
+        int offset;
+        switch (offsetSize)
+        {
+            case 1:
+                offset = offsetBytes[0];
+                break;
+            case 2:
+                offset = BitConverter.ToInt16(offsetBytes, 0);
+                break;
+            case 4:
+                offset = BitConverter.ToInt32(offsetBytes, 0);
+                break;
+            default:
+                throw new Exception("Unsupported offset size");
+        }
+        return ptr + offsetSize + remainingBytes + offset;
+    });
 
-state("DXMD", "1, 3, 524, 17")
-{
-    // 1.3.524.17 - 2016-09-02 patch
-    bool isLoading : 0x2DBC6A0;
-}
-
-state("DXMD", "1, 4, 545, 4")
-{
-    // 1.4.545.4 - 2016-09-08 patch
-    bool isLoading : 0x2DC19C0;
-}
-
-state("DXMD", "1, 4, 545, 5")
-{
-    // 1.4.545.5 - 2016-09-15 patch
-    bool isLoading : 0x2DC19D0;
-}
-
-state("DXMD", "1, 7, 551, 7")
-{
-    // 1.7.551.7 - 2016-09-23 patch
-    bool isLoading : 0x2DC91B0;
-}
-
-state("DXMD", "1, 8, 565, 4")
-{
-    // 1.8.565.4 - 2016-10-03 patch
-    bool isLoading : 0x2DF02A0;
-}
-
-state("DXMD", "1, 9, 582, 1")
-{
-    // 1.9.582.1 - 2016-10-08 patch
-    bool isLoading : 0x2DF3280;
-}
-
-state("DXMD", "1, 10, 592, 1")
-{
-    // 1.10.592.1 - 2016-10-18 patch
-    bool isLoading : 0x2DF43D0;
-}
-
-state("DXMD")
-{
-    // 1.11.616.0 - 2016-11-04 patch
-    bool isLoading : 0x2DFCFE0;
+    vars.loadingStructTarget = new SigScanTarget(18,
+        "55",                      // push rbp
+        "56",                      // push rsi
+        "57",                      // push rdi
+        "48 8D 6C 24 80",          // lea rbp,[rsp--80]
+        "48 81 EC 80 01 00 00",    // sub rsp,00000180
+        "48 8B 05 ?? ?? ?? ??",    // mov rax,[DXMD.NvOptimusEnablement+B5EF00]
+        "48 89 CE",                // mov rsi,rcx
+        "48 8D 0D ?? ?? ?? ??",    // lea rcx,[DXMD.NvOptimusEnablement+B5EF00]
+        "FF 50 68",                // call qword ptr [rax+68]
+        "48 8B 46 08",             // mov rax,[rsi+08]
+        "48 8D 0D ?? ?? ?? ??",    // lea rcx,[DXMD.NvOptimusEnablement+B4CFB0]
+        "48 8B 50 08"              // mov rdx,[rax+08]
+    );
 }
 
 init
 {
-    version = modules.First().FileVersionInfo.FileVersion;
+    var module = modules.First();
+    var scanner = new SignatureScanner(game, module.BaseAddress, module.ModuleMemorySize);
+    var isLoadingStructPtr = scanner.Scan(vars.loadingStructTarget);
+    var isLoadingStructAddr = vars.ReadOffset(game, isLoadingStructPtr, 4, 0);
+    var isLoadingAddr = isLoadingStructAddr + 0x6580; // lets just hope this never changes
+
+    print("[NoLoads] isLoadingStructPtr: " + isLoadingStructPtr.ToString("X"));
+    print("[NoLoads] isLoadingAddr: " + isLoadingAddr.ToString("X"));
+
+    vars.isLoading = new MemoryWatcher<bool>(isLoadingAddr);
 }
 
 exit
@@ -74,7 +64,16 @@ exit
     timer.IsGameTimePaused = true;
 }
 
+update
+{
+    vars.isLoading.Update(game);
+
+    if (vars.isLoading.Current != vars.isLoading.Old) {
+        print("[NoLoads] isLoading changed from " + vars.isLoading.Old + " to " + vars.isLoading.Current);
+    }
+}
+
 isLoading
 {
-    return current.isLoading;
+    return vars.isLoading.Current;
 }
