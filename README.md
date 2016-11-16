@@ -22,6 +22,7 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 
 - Bioshock Trilogy (by MrWalrus, Glurmo, Dread, and me)
 - Deus Ex: Mankind Divided
+- Dishonored 2
 - Doom (2016) (by a lot of people)
 - Dragon Age: Origins (by Letterswords)
 - Dragon Age 2
