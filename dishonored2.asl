@@ -9,7 +9,7 @@ state("Dishonored2", "1.1")
 {
     // 1.74.0
     // 158679040
-    bool isLoading : 0x26AD184;
+    bool isLoading : 0x26AD188;
 }
 
 init
