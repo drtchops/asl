@@ -7,6 +7,7 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
+//Instagibz	@08\12\16:	Updated the splitter for latest 6,1,1,1201 version, VULKAN only for now
 //Instagibz	@14\11\16:	Updated the splitter for latest 6,1,1,1109 version
 //Instagibz	@19\10\16:	Updated the splitter for latest 6,1,1,1012 version
 //Instagibz	@30\09\16:	Added auto-end to 6,1,1,706 also changed auto-start, was broken for me a few times
@@ -99,12 +100,31 @@ state("DOOMx64", "6, 1, 1, 1109") {
 
 state("DOOMx64vk", "6, 1, 1, 1109") {
 	float bossHealth: 0x04A0A918, 0x30, 0x4E8, 0x2E0, 0x1B8;
-	bool start: 0x4D2ED84;
-	bool canStart: 0x2A2F804;
-	bool finalHit: 0x4A12CE4;
-	bool isLoading: 0x4E47580;
+	bool start: 0x4D2ED84; // done
+	bool canStart: 0x2A2F804; // done
+	bool finalHit: 0x4A12CE4; // done
+	bool isLoading: 0x4E47580; // done
 	string35 mapName: "tier0_s64.dll", 0x4D170, 0x17;
 }
+
+state("DOOMx64", "6, 1, 1, 1201") {
+	float bossHealth: 0x0330D838, 0x30, 0x4E8, 0x2E0, 0x1B8;        //NOT UPDATED YET
+	bool start: 0x362E9BC;                                          //NOT UPDATED YET
+	bool canStart: 0x2A4D304;                                       //NOT UPDATED YET
+	bool finalHit: 0x3315AF4;                                       //NOT UPDATED YET
+	bool isLoading: 0x3315690;                                      //NOT UPDATED YET
+	string35 mapName: "tier0_s64.dll", 0x4D170, 0x17;               //NOT UPDATED YET
+}                                                                   
+
+state("DOOMx64vk", "6, 1, 1, 1201") {
+	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;        //DONE
+	bool start: 0x5684168;                          				//DONE
+	bool canStart: 0x2C14A44;                       				//DONE
+	bool finalHit: 0x535F274;                       				//DONE
+	bool isLoading: 0x535EE10;                      				//DONE
+	string35 mapName: "tier0_s64.dll", 0x4D170, 0x17;  				//DONE
+}
+
 
 init {
 	version = modules.First().FileVersionInfo.FileVersion;
@@ -122,7 +142,7 @@ start {
 			current.canStart &&
 			current.mapName.StartsWith("intro")
 		);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201") {
 		// Start the timer only if it's not running
 		// Mapname contains The UAC, we're not loading anything,  We used to be in the intro and we're not anymore
 		return (
@@ -156,7 +176,7 @@ split {
 			!current.mapName.Contains("playing") &&
 			!current.mapName.Contains("a boss")
 			);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201") {
 		return (
 			!String.IsNullOrEmpty(current.mapName) &&
 			!String.IsNullOrEmpty(old.mapName) &&
