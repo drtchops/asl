@@ -1,5 +1,8 @@
-// 1.1.1.0 - 2016-10-15
-// unknown pointer
+state("ShadowWarrior2")
+{
+    // 1.1.1.0 - 2016-10-15
+    // unknown pointer
+}
 
 state("ShadowWarrior2", "1.1.2.0")
 {
@@ -25,16 +28,22 @@ state("ShadowWarrior2", "1.1.4.1")
     bool isGameplay : 0x181F2D8;
 }
 
-state("ShadowWarrior2")
+state("ShadowWarrior2", "1.1.5.0")
 {
     // 1.1.5.0 - 2016-11-09
     bool isGameplay : 0x18273B8;
 }
 
+state("ShadowWarrior2", "1.1.5.1")
+{
+    // 1.1.5.1 - 2016-12-08
+    bool isGameplay : 0x182BC58;
+}
+
 init
 {
     version = modules.First().FileVersionInfo.FileVersion;
-    // print(version);
+    print(version);
 }
 
 exit
