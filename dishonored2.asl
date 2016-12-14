@@ -1,3 +1,8 @@
+state("Dishonored2")
+{
+    // default unknown version
+}
+
 state("Dishonored2", "1.0")
 {
     // 1.74.0
@@ -26,9 +31,18 @@ state("Dishonored2", "1.3")
     bool isLoading : 0x26BD368; // 26BD374
 }
 
+state("Dishonored2", "1.4")
+{
+    // 1.76.0.18
+    // 163115008
+    bool isLoading : 0x26DF8E8; // 26DF8F4
+}
+
 init
 {
-    if (modules.First().ModuleMemorySize == 166068224) {
+    if (modules.First().ModuleMemorySize == 163115008) {
+        version = "1.4";
+    } else if (modules.First().ModuleMemorySize == 166068224) {
         version = "1.3";
     } else if (modules.First().ModuleMemorySize == 155365376) {
         version = "1.2";
