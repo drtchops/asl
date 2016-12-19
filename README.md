@@ -21,6 +21,7 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 ## Supported Games
 
 - Bioshock Trilogy (by MrWalrus, Glurmo, Dread, and me)
+- Cornerstone: The Song of Tyrim (by Dalet)
 - Deus Ex: Mankind Divided
 - Dishonored 2
 - Doom (2016) (by a lot of people)
