@@ -7,7 +7,7 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
-//Instagibz @20\12\16:	Updated the splitter for latest 6,1,1,1219 version, VULKAN only for now
+//Instagibz 	@20\12\16:	Updated the splitter for latest 6,1,1,1219 version, VULKAN only for now
 //Instagibz	@08\12\16:	Updated the splitter for latest 6,1,1,1201 version, VULKAN only for now
 //Instagibz	@14\11\16:	Updated the splitter for latest 6,1,1,1109 version
 //Instagibz	@19\10\16:	Updated the splitter for latest 6,1,1,1012 version
