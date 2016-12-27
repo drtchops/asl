@@ -40,10 +40,16 @@ state("ShadowWarrior2", "1.1.5.1")
     bool isGameplay : 0x182BC58;
 }
 
+state("ShadowWarrior2", "1.1.7.0")
+{
+    // 1.1.7.0 - 2016-12-21
+    bool isGameplay : 0x18ABC58;
+}
+
 init
 {
     version = modules.First().FileVersionInfo.FileVersion;
-    print(version);
+    // print(version);
 }
 
 exit
