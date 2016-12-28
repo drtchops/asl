@@ -10,6 +10,7 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 
 ## Troubleshooting
 
+- Make sure you're running the latest version of LiveSplit. Most autosplitters need at least version 1.6.
 - Make sure you're comparing against game time: right click livesplit -> compare against -> game time
 - Make sure the version of the game you're running is supported.
 - Antivirus programs love to give false positives. Exclude the entire LiveSplit folder.
