@@ -1,3 +1,8 @@
+state("Dishonored2")
+{
+    // default unknown version
+}
+
 state("Dishonored2", "1.0")
 {
     // 1.74.0
@@ -30,13 +35,25 @@ state("Dishonored2", "1.3")
     string64 pckFile : 0x31F34D0, 0x578, 0x0;
 }
 
+state("Dishonored2", "1.4")
+{
+    // 1.76.0.18
+    // 163115008
+    bool isLoading : 0x26DF8E8; // 26DF8F4
+    float x : 0x26DFC08, 0x1E8960, 0xE50, 0x540, 0x10, 0x40, 0x0, 0x3C;
+    float y : 0x26DFC08, 0x1E8960, 0xE50, 0x540, 0x10, 0x40, 0x0, 0x40;
+    float z : 0x26DFC08, 0x1E8960, 0xE50, 0x540, 0x10, 0x40, 0x0, 0x44;
+    string64 pckFile : 0x3255AF0, 0x578, 0x0;
+}
+
 init
 {
     switch (modules.First().ModuleMemorySize) {
-        case 166068224: version = "1.3"; break;
-        case 155365376: version = "1.2"; break;
-        case 158679040: version = "1.1"; break;
-        default:        version = "1.0"; break;
+        case 163115008: version = "1.4"; vars.autoStart = true;  break;
+        case 166068224: version = "1.3"; vars.autoStart = true;  break;
+        case 155365376: version = "1.2"; vars.autoStart = false; break;
+        case 158679040: version = "1.1"; vars.autoStart = false; break;
+        default:        version = "1.0"; vars.autoStart = false; break;
     }
     // print(modules.First().FileVersionInfo.FileVersion);
     // print(modules.First().ModuleMemorySize.ToString());
@@ -54,7 +71,7 @@ isLoading
 
 update
 {
-    if (string.Compare("1.3",version)<0) {
+    if (!vars.autoStart) {
         return true;
     }
 
@@ -71,7 +88,7 @@ update
 
 reset
 {
-    if (string.Compare("1.3",version)<0) {
+    if (!vars.autoStart) {
         return false;
     }
 
@@ -80,7 +97,7 @@ reset
 
 start
 {
-    if (string.Compare("1.3",version)<0) {
+    if (!vars.autoStart) {
         return false;
     }
 
