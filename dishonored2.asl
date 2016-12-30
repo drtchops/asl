@@ -46,6 +46,13 @@ state("Dishonored2", "1.4")
     string64 pckFile : 0x3255AF0, 0x578, 0x0;
 }
 
+state("Dishonored2", "1.4")
+{
+    // 1.76.0.18
+    // 163115008
+    bool isLoading : 0x26DF8E8; // 26DF8F4
+}
+
 init
 {
     switch (modules.First().ModuleMemorySize) {
