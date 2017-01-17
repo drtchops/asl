@@ -89,7 +89,6 @@ init
         vars.oInitFmodPtr = game.WriteDetour((IntPtr)vars.initFmodPtr, 5, (IntPtr)vars.injectedFuncPtr);
 
         // write the body of the injected function
-        var oInitFmodPtrBytes = BitConverter.GetBytes((uint)vars.oInitFmodPtr);
         game.WriteBytes((IntPtr)vars.injectedFuncPtr, initFmodDetourBytes.ToArray());
 
         // replace the call placeholder
