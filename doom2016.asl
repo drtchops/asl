@@ -42,17 +42,17 @@ state("DOOMx64", "6, 1, 1, 706") {
 	bool start: 0x34C5304;
 	bool finalHit: 0x31D3F74;
 	float bossHealth: 0x31CC008, 0x30, 0x4E8, 0x2D8, 0x1B4;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64", "6, 1, 1, 808") {
 	bool isLoading: 0x31D13C0;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64vk", "6, 1, 1, 808") {
 	bool isLoading: 0x4CE5AB0;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64", "6, 1, 1, 920") {
@@ -61,7 +61,7 @@ state("DOOMx64", "6, 1, 1, 920") {
 	bool start: 0x3562DB0;
 	bool isLoading: 0x3236CD0;
 	bool finalHit: 0x3237134;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64vk", "6, 1, 1, 920") {
@@ -70,7 +70,7 @@ state("DOOMx64vk", "6, 1, 1, 920") {
 	bool canStart: 0x2947314;
 	bool finalHit: 0x49332E4;
 	bool isLoading: 0x4932E80;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64", "6, 1, 1, 1012") {
@@ -79,7 +79,7 @@ state("DOOMx64", "6, 1, 1, 1012") {
 	bool canStart: 0x2A4D304;
 	bool finalHit: 0x3315AF4;
 	bool isLoading: 0x3315690;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64vk", "6, 1, 1, 1012") {
@@ -88,7 +88,7 @@ state("DOOMx64vk", "6, 1, 1, 1012") {
 	bool canStart: 0x2A2F804;
 	bool finalHit: 0x4A12CE4;
 	bool isLoading: 0x4E47580;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64", "6, 1, 1, 1109") {
@@ -97,7 +97,7 @@ state("DOOMx64", "6, 1, 1, 1109") {
 	bool canStart: 0x2A4D304;
 	bool finalHit: 0x3315AF4;
 	bool isLoading: 0x3315690;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64vk", "6, 1, 1, 1109") {
@@ -106,7 +106,7 @@ state("DOOMx64vk", "6, 1, 1, 1109") {
 	bool canStart: 0x2A2F804; // done
 	bool finalHit: 0x4A12CE4; // done
 	bool isLoading: 0x4E47580; // done
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64", "6, 1, 1, 1201") {
@@ -115,7 +115,7 @@ state("DOOMx64", "6, 1, 1, 1201") {
 	bool canStart: 0x2A4D304;                                       //NOT UPDATED YET
 	bool finalHit: 0x3315AF4;                                       //NOT UPDATED YET
 	bool isLoading: 0x3315690;                                      //NOT UPDATED YET
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;               //NOT UPDATED YET
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;               //NOT UPDATED YET
 }                                                                   
 
 state("DOOMx64vk", "6, 1, 1, 1201") {
@@ -124,7 +124,7 @@ state("DOOMx64vk", "6, 1, 1, 1201") {
 	bool canStart: 0x2C14A44;                       				//DONE
 	bool finalHit: 0x535F274;                       				//DONE
 	bool isLoading: 0x535EE10;                      				//DONE
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;  				//DONE
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  				//DONE
 }
 
 state("DOOMx64vk", "6, 1, 1, 1219") {
@@ -133,7 +133,7 @@ state("DOOMx64vk", "6, 1, 1, 1219") {
 	bool canStart: 0x2C14A44;                       				//NOT UPDATED YET
 	bool finalHit: 0x535F274;                       				//NOT UPDATED YET
 	bool isLoading: 0x535EE10;                      				//NOT UPDATED YET
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;  				//NOT UPDATED YET
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  				//NOT UPDATED YET
 }
 
 state("DOOMx64vk", "6, 1, 1, 1219") {
@@ -142,7 +142,7 @@ state("DOOMx64vk", "6, 1, 1, 1219") {
 	bool canStart: 0x2C14A44;                       				//DONE
 	bool finalHit: 0x535F274;                       				//DONE
 	bool isLoading: 0x535EE10;                      				//DONE
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x14;  				//DONE
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  				//DONE
 }
 init {
 	version = modules.First().FileVersionInfo.FileVersion;
