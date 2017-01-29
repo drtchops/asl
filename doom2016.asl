@@ -7,6 +7,7 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
+//Instagibz	@29\01\17:	Update the splitter for latest steam-api change
 //Instagibz 	@20\12\16:	Updated the splitter for latest 6,1,1,1219 version, VULKAN only for now
 //Instagibz	@08\12\16:	Updated the splitter for latest 6,1,1,1201 version, VULKAN only for now
 //Instagibz	@14\11\16:	Updated the splitter for latest 6,1,1,1109 version
