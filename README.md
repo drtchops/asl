@@ -43,3 +43,5 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - The Elder Scrolls IV: Oblivion (by TheFuncanon and me)
 - Shadow Warrior 2
 - Titanfall 2
+- Wolfenstein: The New Order
+- Wolfenstein: The Old Blood
