@@ -33,6 +33,7 @@ state("Dishonored2", "1.3")
     float y : 0x26BD688, 0x1E8960, 0xE50, 0x540, 0x10, 0x40, 0x0, 0x40;
     float z : 0x26BD688, 0x1E8960, 0xE50, 0x540, 0x10, 0x40, 0x0, 0x44;
     string64 pckFile : 0x31F34D0, 0x578, 0x0;
+    float screenFade : 0x2518A50, 0xEEF38, 0x34;
 }
 
 state("Dishonored2", "1.4")
@@ -44,6 +45,7 @@ state("Dishonored2", "1.4")
     float y : 0x26DFC08, 0x1E8960, 0xE50, 0x540, 0x10, 0x40, 0x0, 0x40;
     float z : 0x26DFC08, 0x1E8960, 0xE50, 0x540, 0x10, 0x40, 0x0, 0x44;
     string64 pckFile : 0x3255AF0, 0x578, 0x0;
+    float screenFade : 0x253B0D0, 0xEEF38, 0x34;
 }
 
 init
@@ -74,13 +76,19 @@ update
     if (!vars.autoStart) {
         return true;
     }
+    
+    const float posX =  -28.09f,
+                posY = -153.96f,
+                posZ =   66.40f,
+                delta =  0.005f;
 
     if (old.isLoading || current.isLoading) {
         vars.runStarting =
             current.pckFile.Equals("main-game1-dunwall_escape_tower_p-sfx.pck") &&
-            current.x> -28.10 && current.x< -28.09 &&
-            current.y>-153.97 && current.y<-153.96 &&
-            current.z>  66.40 && current.z<  66.41;
+        //is inside starting area
+            current.x>posX-delta && current.x<posX+delta &&
+            current.y>posY-delta && current.y<posY+delta &&
+            current.z>posZ-delta && current.z<posZ+delta;
     } else {
         vars.runStarting = false;
     }
@@ -102,4 +110,28 @@ start
     }
 
     return !current.isLoading && vars.runStarting;
+}
+
+split
+{
+    if (!vars.autoStart) {
+        return true;
+    }
+    
+    const float posX = -41.85f,
+                posY =  23.18f,
+                posZ =  61.00f,
+                delta =  0.005f;
+    
+    return
+        current.screenFade>0 &&
+        current.pckFile.Equals("main-game2-dunwall_return_tower_p-sfx.pck") &&
+    //was outside ending cutscene area
+       (old.x <= posX-delta || old.x >= posX+delta ||
+        old.y <= posY-delta || old.y >= posY+delta ||
+        old.z <= posZ-delta || old.z >= posZ+delta) &&
+    //is inside ending cutscene area
+        current.x>posX-delta && current.x<posX+delta &&
+        current.y>posY-delta && current.y<posY+delta &&
+        current.z>posZ-delta && current.z<posZ+delta;
 }
