@@ -47,10 +47,22 @@ state("Dishonored2", "1.4")
     string64 pckFile : 0x3255AF0, 0x578, 0x0;
     float screenFade : 0x253B0D0, 0xEEF38, 0x34;
 }
+state("Dishonored2", "1.7")
+{
+    // 1.77.7.0
+    // 119568896
+    bool isLoading : 0x271D3A8;
+    float x : 0x271D6C8, 0x1E8960, 0xE58, 0x540, 0x10, 0x40, 0x0, 0x3C;
+    float y : 0x271D6C8, 0x1E8960, 0xE58, 0x540, 0x10, 0x40, 0x0, 0x40;
+    float z : 0x271D6C8, 0x1E8960, 0xE58, 0x540, 0x10, 0x40, 0x0, 0x44;
+    string64 pckFile : 0x329B6B0, 0x578, 0x0;
+    float screenFade : 0x2552BD8, 0xEEF38, 0x34;
+}
 
 init
 {
     switch (modules.First().ModuleMemorySize) {
+        case 175591424: version = "1.7"; vars.autoStart = true;  break;
         case 163115008: version = "1.4"; vars.autoStart = true;  break;
         case 166068224: version = "1.3"; vars.autoStart = true;  break;
         case 155365376: version = "1.2"; vars.autoStart = false; break;
@@ -80,7 +92,7 @@ update
     const float posX =  -28.09f,
                 posY = -153.96f,
                 posZ =   66.40f,
-                delta =  0.005f;
+                delta =   0.005f;
 
     if (old.isLoading || current.isLoading) {
         vars.runStarting =
