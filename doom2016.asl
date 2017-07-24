@@ -4,18 +4,21 @@
 // loitho
 // sychotixx
 // Instagibz
+// blairmadison11
 // probably more
 
 //===NOTES AND CHANGELOG===//
-//Instagibz	@29\01\17:	Update the splitter for latest steam-api change
-//Instagibz 	@20\12\16:	Updated the splitter for latest 6,1,1,1219 version, VULKAN only for now
-//Instagibz	@08\12\16:	Updated the splitter for latest 6,1,1,1201 version, VULKAN only for now
-//Instagibz	@14\11\16:	Updated the splitter for latest 6,1,1,1109 version
-//Instagibz	@19\10\16:	Updated the splitter for latest 6,1,1,1012 version
-//Instagibz	@30\09\16:	Added auto-end to 6,1,1,706 also changed auto-start, was broken for me a few times
-//TheFuncannon	@30\09\16:	Updated the OGL version 6,1,1,706 to auto-start 
-//Instagibz	@30\09\16:	Updated the vulkan and OGL version 6,1,1,920 to auto-start, auto-split and auto-end the run. Requires 13 splits 
+//Instagibz & blairmadison11	@22\07\17:	Updated the splitter for the latest 6,1,1,513 version, VULKAN only for now. Note: Versioning changed back from 6,1,1,1219 to 6,1,1,513
+//Instagibz						@29\01\17:	Updated the splitter for latest steam-api change
+//Instagibz						@20\12\16:	Updated the splitter for latest 6,1,1,1219 version, VULKAN only for now
+//Instagibz						@08\12\16:	Updated the splitter for latest 6,1,1,1201 version, VULKAN only for now
+//Instagibz						@14\11\16:	Updated the splitter for latest 6,1,1,1109 version
+//Instagibz						@19\10\16:	Updated the splitter for latest 6,1,1,1012 version
+//Instagibz						@30\09\16:	Added auto-end to 6,1,1,706 also changed auto-start, was broken for me a few times
+//TheFuncannon					@30\09\16:	Updated the OGL version 6,1,1,706 to auto-start 
+//Instagibz						@30\09\16:	Updated the vulkan and OGL version 6,1,1,920 to auto-start, auto-split and auto-end the run. Requires 13 splits 
 //===NOTES AND CHANGELOG===//
+
 
 state("DOOMx64", "6, 1, 1, 527") {
 	bool isLoading: 0x308C930;
@@ -102,10 +105,10 @@ state("DOOMx64", "6, 1, 1, 1109") {
 
 state("DOOMx64vk", "6, 1, 1, 1109") {
 	float bossHealth: 0x04A0A918, 0x30, 0x4E8, 0x2E0, 0x1B8;
-	bool start: 0x4D2ED84; // done
-	bool canStart: 0x2A2F804; // done
-	bool finalHit: 0x4A12CE4; // done
-	bool isLoading: 0x4E47580; // done
+	bool start: 0x4D2ED84;
+	bool canStart: 0x2A2F804;
+	bool finalHit: 0x4A12CE4;
+	bool isLoading: 0x4E47580;
 	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
@@ -119,15 +122,15 @@ state("DOOMx64", "6, 1, 1, 1201") {
 }                                                                   
 
 state("DOOMx64vk", "6, 1, 1, 1201") {
-	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;        //DONE
-	bool start: 0x5684168;                          				//DONE
-	bool canStart: 0x2C14A44;                       				//DONE
-	bool finalHit: 0x535F274;                       				//DONE
-	bool isLoading: 0x535EE10;                      				//DONE
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  				//DONE
+	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;      
+	bool start: 0x5684168;                          		
+	bool canStart: 0x2C14A44;                       		
+	bool finalHit: 0x535F274;                       		
+	bool isLoading: 0x535EE10;                      		
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  		
 }
 
-state("DOOMx64vk", "6, 1, 1, 1219") {
+state("DOOMx64", "6, 1, 1, 1219") {
 	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;        //NOT UPDATED YET
 	bool start: 0x5684168;                          				//NOT UPDATED YET
 	bool canStart: 0x2C14A44;                       				//NOT UPDATED YET
@@ -137,13 +140,32 @@ state("DOOMx64vk", "6, 1, 1, 1219") {
 }
 
 state("DOOMx64vk", "6, 1, 1, 1219") {
-	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;        //DONE
-	bool start: 0x5684168;                          				//DONE
-	bool canStart: 0x2C14A44;                       				//DONE
-	bool finalHit: 0x535F274;                       				//DONE
-	bool isLoading: 0x535EE10;                      				//DONE
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  				//DONE
+	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;      
+	bool start: 0x5684168;                          		
+	bool canStart: 0x2C14A44;                       		
+	bool finalHit: 0x535F274;                       		
+	bool isLoading: 0x535EE10;                      		
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  		
 }
+
+state("DOOMx64", "6, 1, 1, 531") {
+	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;        //NOT UPDATED YET
+	bool start: 0x57BDEE0;                          				//NOT UPDATED YET
+	bool canStart: 0x54DC3D8;                       				//NOT UPDATED YET
+	bool finalHit: 0x535F274;                       				//NOT UPDATED YET
+	bool isLoading: 0x56844C9;                      				//NOT UPDATED YET
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  				//NOT UPDATED YET
+}
+
+state("DOOMx64vk", "6, 1, 1, 531") {
+	float bossHealth: 0x4C6F9D0, 0x30, 0x4E8, 0x2F0, 0x1B4;
+	bool start: 0x57BDEE0;
+	bool canStart: 0x54DC3D8;
+	bool finalHit: 0x53C5DD4;
+	bool isLoading: 0x56844C9;
+	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+}
+
 init {
 	version = modules.First().FileVersionInfo.FileVersion;
 	print(version);
@@ -160,7 +182,7 @@ start {
 			current.canStart &&
 			current.mapName.StartsWith("intro")
 		);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
 		// Start the timer only if it's not running
 		// Mapname contains The UAC, we're not loading anything,  We used to be in the intro and we're not anymore
 		return (
@@ -194,7 +216,7 @@ split {
 			!current.mapName.Contains("playing") &&
 			!current.mapName.Contains("a boss")
 			);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
 		return (
 			!String.IsNullOrEmpty(current.mapName) &&
 			!String.IsNullOrEmpty(old.mapName) &&
