@@ -34,6 +34,8 @@ state("Dishonored2", "1.3")
     float z : 0x26BD688, 0x1E8960, 0xE50, 0x540, 0x10, 0x40, 0x0, 0x44;
     string128 levelName : 0x3E04E50;
     float screenFade : 0x2518A50, 0xEEF38, 0x34;
+    uint interaction : 0x2566CA8, 0x1F6EB0, 0x88, 0x80, 0x4;
+    uint canInteract : 0x2566CA8, 0x1F6EB0, 0xE90, 0x0;
 }
 
 state("Dishonored2", "1.4")
@@ -46,6 +48,8 @@ state("Dishonored2", "1.4")
     float z : 0x26DFC08, 0x1E8960, 0xE50, 0x540, 0x10, 0x40, 0x0, 0x44;
     string128 levelName : 0x3E69FF0;
     float screenFade : 0x253B0D0, 0xEEF38, 0x34;
+    uint interaction : 0x2589328, 0x1F6EC0, 0x88, 0x80, 0x4;
+    uint canInteract : 0x2589328, 0x1F6EC0, 0xE90, 0x0;
 }
 
 state("Dishonored2", "1.7")
@@ -58,6 +62,8 @@ state("Dishonored2", "1.7")
     float z : 0x271D6C8, 0x1E8960, 0xE58, 0x540, 0x10, 0x40, 0x0, 0x44;
     string128 levelName : 0x3EB22F0;
     float screenFade : 0x2552BD8, 0xEEF38, 0x34;
+    uint interaction : 0x25A0E28, 0x1F6EE8, 0x88, 0x80, 0x4;
+    uint canInteract : 0x25A0E28, 0x1F6EE8, 0xE90, 0x0;
 }
 
 startup {
@@ -83,7 +89,7 @@ startup {
         ++i;
     }
 
-    settings.Add("autosplit_end",false,"Split on run end (delayed by 1.3 seconds)");
+    settings.Add("autosplit_end",false,"Split on run end");
 
     vars.autoSplitIndex = -1;
 }
@@ -185,23 +191,19 @@ split
 
             return true;
         }
-    } else if(settings["autosplit_end"]) {
-        const float posX = -41.85f,
-                    posY =  23.18f,
-                    posZ =  61.00f,
-                    delta =  0.005f;
-
-        return
-            current.screenFade > 0 &&
-            current.levelName.Equals("campaign/dunwall/return/tower/dunwall_return_tower_p") &&
-        //was outside ending cutscene area
-           (old.x <= posX-delta || old.x >= posX+delta ||
-            old.y <= posY-delta || old.y >= posY+delta ||
-            old.z <= posZ-delta || old.z >= posZ+delta) &&
-        //is inside ending cutscene area
-            current.x > posX-delta && current.x < posX+delta &&
-            current.y > posY-delta && current.y < posY+delta &&
-            current.z > posZ-delta && current.z < posZ+delta;
+    } else if(vars.autoSplitIndex == vars.autoSplits.Length && settings["autosplit_end"]) {
+        bool isFadingOut = (current.screenFade > old.screenFade && current.screenFade < 1.0f);
+        
+        //for some reason 0x4B indicates that we can interact with something
+        bool canInteract = (current.canInteract == 0x4B);
+        
+        //0x9C673C93 is the id (possibly a hash) for "Revive your father", 0xA2674605 is for "Revive your daughter"
+        bool isFinalInteraction = (current.interaction == 0x9C673C93 || current.interaction == 0xA2674605);
+        
+        if(isFadingOut && canInteract && isFinalInteraction) {
+            ++vars.autoSplitIndex;
+            return true;
+        }
     }
 
     return false;
