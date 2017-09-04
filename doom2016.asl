@@ -8,6 +8,7 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
+//blairmadison11				@02\09\17: Partially updated the splitter for the latest 6,1,1,818, VULKAN only
 //Instagibz & blairmadison11	@22\07\17:	Updated the splitter for the latest 6,1,1,513 version, VULKAN only for now. Note: Versioning changed back from 6,1,1,1219 to 6,1,1,513
 //Instagibz						@29\01\17:	Updated the splitter for latest steam-api change
 //Instagibz						@20\12\16:	Updated the splitter for latest 6,1,1,1219 version, VULKAN only for now
@@ -166,6 +167,15 @@ state("DOOMx64vk", "6, 1, 1, 531") {
 	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
+state("DOOMx64vk", "6, 1, 1, 818") {
+	float bossHealth: 0x4B389D0, 0x30, 0x4E8, 0x2F0, 0x1B4; // untested - may be broken
+	bool start: 0x5686EE0;								// seems to work
+	bool canStart: 0x53A53D8;							// seems to work
+	bool finalHit: 0x528EDD4;							// untested - may be broken
+	bool isLoading: 0x554D4C9;							// confirmed working
+	string35 mapName: "tier0_s64.dll", 0x4E150, 0x17;	// confirmed working
+}
+
 init {
 	version = modules.First().FileVersionInfo.FileVersion;
 	print(version);
@@ -182,7 +192,7 @@ start {
 			current.canStart &&
 			current.mapName.StartsWith("intro")
 		);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531" || version == "6, 1, 1, 818") {
 		// Start the timer only if it's not running
 		// Mapname contains The UAC, we're not loading anything,  We used to be in the intro and we're not anymore
 		return (
@@ -216,7 +226,7 @@ split {
 			!current.mapName.Contains("playing") &&
 			!current.mapName.Contains("a boss")
 			);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531" || version == "6, 1, 1, 818") {
 		return (
 			!String.IsNullOrEmpty(current.mapName) &&
 			!String.IsNullOrEmpty(old.mapName) &&
