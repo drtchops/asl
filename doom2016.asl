@@ -8,8 +8,10 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
+//Loitho						@09\09\17:	Fixed the splitter for auto split on last boss hit 6,1,1,818 - Vulkan only
+//blairmadison11				@02\09\17:	Partially updated the splitter for the latest 6,1,1,818, VULKAN only
 //Instagibz & blairmadison11	@22\07\17:	Updated the splitter for the latest 6,1,1,513 version, VULKAN only for now. Note: Versioning changed back from 6,1,1,1219 to 6,1,1,513
-//Instagibz						@29\01\17:	Updated the splitter for latest steam-api change
+//Instagibz                     @29\01\17:	Updated the splitter for latest steam-api change
 //Instagibz						@20\12\16:	Updated the splitter for latest 6,1,1,1219 version, VULKAN only for now
 //Instagibz						@08\12\16:	Updated the splitter for latest 6,1,1,1201 version, VULKAN only for now
 //Instagibz						@14\11\16:	Updated the splitter for latest 6,1,1,1109 version
@@ -166,6 +168,15 @@ state("DOOMx64vk", "6, 1, 1, 531") {
 	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
+state("DOOMx64vk", "6, 1, 1, 818") {
+	float bossHealth: 0x2B0F3C0, 0x2CD80, 0x2B78; 		// Fixed
+	bool start: 0x5686EE0;								// confirmed working
+	bool canStart: 0x53A53D8;							// confirmed working
+	bool finalHit: 0x528EDB4;							// confirmed working
+	bool isLoading: 0x554D4C9;							// confirmed working
+	string35 mapName: "tier0_s64.dll", 0x4E150, 0x17;	// confirmed working
+}
+
 init {
 	version = modules.First().FileVersionInfo.FileVersion;
 	print(version);
@@ -182,7 +193,7 @@ start {
 			current.canStart &&
 			current.mapName.StartsWith("intro")
 		);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531" || version == "6, 1, 1, 818") {
 		// Start the timer only if it's not running
 		// Mapname contains The UAC, we're not loading anything,  We used to be in the intro and we're not anymore
 		return (
@@ -216,7 +227,7 @@ split {
 			!current.mapName.Contains("playing") &&
 			!current.mapName.Contains("a boss")
 			);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531" || version == "6, 1, 1, 818") {
 		return (
 			!String.IsNullOrEmpty(current.mapName) &&
 			!String.IsNullOrEmpty(old.mapName) &&
