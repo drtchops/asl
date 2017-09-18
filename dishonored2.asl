@@ -89,7 +89,7 @@ startup {
         ++i;
     }
 
-    settings.Add("autosplit_end",false,"Split on run end");
+    settings.Add("autosplit_end",true,"Split on run end");
 
     vars.autoSplitIndex = -1;
 }
