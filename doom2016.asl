@@ -8,6 +8,7 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
+//Loitho						@13\10\17:	Fixed mapname variable. Invalid pointer caused by a steam update of the tier0_s64.dll | Works for Steam >= 4.17.60.88
 //Loitho						@09\09\17:	Fixed the splitter for auto split on last boss hit 6,1,1,818 - Vulkan only
 //blairmadison11				@02\09\17:	Partially updated the splitter for the latest 6,1,1,818, VULKAN only
 //Instagibz & blairmadison11	@22\07\17:	Updated the splitter for the latest 6,1,1,513 version, VULKAN only for now. Note: Versioning changed back from 6,1,1,1219 to 6,1,1,513
@@ -174,7 +175,9 @@ state("DOOMx64vk", "6, 1, 1, 818") {
 	bool canStart: 0x53A53D8;							// confirmed working
 	bool finalHit: 0x528EDB4;							// confirmed working
 	bool isLoading: 0x554D4C9;							// confirmed working
-	string35 mapName: "tier0_s64.dll", 0x4E150, 0x17;	// confirmed working
+	
+	string35 mapName: "tier0_s64.dll", 0x53190, 0x17;	// Fixed mapname for dll version >= 4.17.60.88
+	//string35 mapName: "tier0_s64.dll", 0x4E150, 0x17;	// Old DLL version
 }
 
 init {
