@@ -8,6 +8,7 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
+//Glurmo						@21\01\19:	Fixed map name pointer for steam update (4.89.17.15) + added skipping of rune loadscreens for 100%
 //Instagibz						@04\04\18:	Updated the splitter for latest 6,1,1,321 version, VULKAN only
 //Loitho						@13\10\17:	Fixed mapname variable. Invalid pointer caused by a steam update of the tier0_s64.dll | Works for Steam >= 4.17.60.88
 //Loitho						@09\09\17:	Fixed the splitter for auto split on last boss hit 6,1,1,818 - Vulkan only
@@ -177,8 +178,7 @@ state("DOOMx64vk", "6, 1, 1, 818") {
 	bool finalHit: 0x528EDB4;							// confirmed working
 	bool isLoading: 0x554D4C9;							// confirmed working
 	
-	string35 mapName: "tier0_s64.dll", 0x53190, 0x17;	// Fixed mapname for dll version >= 4.17.60.88
-	//string35 mapName: "tier0_s64.dll", 0x4E150, 0x17;	// Old DLL version
+	string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
 }
 
 state("DOOMx64vk", "6, 1, 1, 321") {
@@ -188,7 +188,7 @@ state("DOOMx64vk", "6, 1, 1, 321") {
 	bool finalHit: 0x5557504;
 	bool isLoading: 0x5845a29;
 
-	string35 mapName: "tier0_s64.dll", 0x59180, 0x17;
+	string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
 
 }
 
@@ -252,7 +252,10 @@ split {
 			!old.mapName.Contains("a boss") &&
 			!current.mapName.Contains("menu") &&
 			!current.mapName.Contains("playing") &&
-			!current.mapName.Contains("a boss")
+			!current.mapName.Contains("a boss") &&
+			!current.mapName.Contains("The UAC") && // Start timer, but don't split for UAC
+			!current.mapName.Contains("Rune Trial") && // Ignore rune loadscreens for 100%
+			current.isLoading // Ignore mapName change for death in UN
 			) || (
 			!current.finalHit &&
 			current.bossHealth == 1);
