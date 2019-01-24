@@ -8,6 +8,7 @@
 // probably more
 
 //===NOTES AND CHANGELOG===//
+//Glurmo						@23\01\19:	Removed steam api ("tier0_s64.dll") dependency to prevent steam client updates breaking autosplitter + Add NG+ support
 //Glurmo						@21\01\19:	Fixed map name pointer for steam update (4.89.17.15) + added skipping of rune loadscreens for 100%
 //Instagibz						@04\04\18:	Updated the splitter for latest 6,1,1,321 version, VULKAN only
 //Loitho						@13\10\17:	Fixed mapname variable. Invalid pointer caused by a steam update of the tier0_s64.dll | Works for Steam >= 4.17.60.88
@@ -171,6 +172,7 @@ state("DOOMx64vk", "6, 1, 1, 531") {
 	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
+// 2017-08-24 Patch
 state("DOOMx64vk", "6, 1, 1, 818") {
 	float bossHealth: 0x2B0F3C0, 0x2CD80, 0x2B78; 		// Fixed
 	bool start: 0x5686EE0;								// confirmed working
@@ -179,8 +181,10 @@ state("DOOMx64vk", "6, 1, 1, 818") {
 	bool isLoading: 0x554D4C9;							// confirmed working
 	
 	string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
+	string60 mapFile: 0x556B325;
 }
 
+// 2018-03-29 Patch (Latest)
 state("DOOMx64vk", "6, 1, 1, 321") {
 	float bossHealth: 0x307EF08, 0x2CD80, 0x2B78;
 	bool start: 0x597FCD0;
@@ -189,7 +193,27 @@ state("DOOMx64vk", "6, 1, 1, 321") {
 	bool isLoading: 0x5845a29;
 
 	string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
+	string60 mapFile: 0x5862785;
+}
 
+startup {
+	vars.visitedMapFiles = new List<string>();
+	vars.introMapFile = "game/sp/intro/intro"; // UAC
+	vars.mapFileSplits = new List<string>() {
+		"game/sp/resource_ops/resource_ops", // Resource Operations
+		"game/sp/resource_ops_foundry/resource_ops_foundry", // Foundry
+		"game/sp/surface1/surface1", // Argent Facility
+		"game/sp/argent_tower/argent_tower", // Argent Energy Tower
+		"game/sp/blood_keep/blood_keep", // Kadingir Sanctum
+		"game/sp/surface2/surface2", // Argent Facility (Destroyed)
+		"game/sp/bfg_division/bfg_division", // Advanced Research Complex
+		"game/sp/lazarus/lazarus", // Lazarus Labs (1)
+		// "game/sp/lazarus_2/lazarus_2", // Lazarus Labs (2) - mid-level loadscreen
+		"game/sp/blood_keep_b/blood_keep_b", // Titan's Realm
+		"game/sp/blood_keep_c/blood_keep_c", // The Necropolis
+		"game/sp/polar_core/polar_core", // VEGA Central Processing
+		"game/sp/titan/titan", // Argent D'Nur
+	};
 }
 
 init {
@@ -200,6 +224,7 @@ init {
 exit { timer.IsGameTimePaused = true; }
 
 start {
+	vars.visitedMapFiles = new List<string>();
 	if (version == "6, 1, 1, 527") {
 		return (
 			!old.start &&
@@ -208,7 +233,7 @@ start {
 			current.canStart &&
 			current.mapName.StartsWith("intro")
 		);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531" || version == "6, 1, 1, 818" || version == "6, 1, 1, 321") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
 		// Start the timer only if it's not running
 		// Mapname contains The UAC, we're not loading anything,  We used to be in the intro and we're not anymore
 		return (
@@ -217,6 +242,15 @@ start {
 			current.start &&
 			current.canStart &&
 			current.mapName.Contains("The UAC")
+		);
+	} else if (version == "6, 1, 1, 818" || version == "6, 1, 1, 321") {
+		// Latest 2 patches
+		return (
+			!current.isLoading &&
+			!old.start &&
+			current.start &&
+			current.canStart &&
+			current.mapFile == vars.introMapFile
 		);
 	}
 }
@@ -242,7 +276,7 @@ split {
 			!current.mapName.Contains("playing") &&
 			!current.mapName.Contains("a boss")
 			);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531" || version == "6, 1, 1, 818" || version == "6, 1, 1, 321") {
+	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
 		return (
 			!String.IsNullOrEmpty(current.mapName) &&
 			!String.IsNullOrEmpty(old.mapName) &&
@@ -258,8 +292,28 @@ split {
 			current.isLoading // Ignore mapName change for death in UN
 			) || (
 			!current.finalHit &&
-			current.bossHealth == 1);
+			current.bossHealth == 1
+		);
+	} else if (version == "6, 1, 1, 818" || version == "6, 1, 1, 321") {
+		// Latest 2 patches (2018-03-29, 2017-08-24)
+		bool finalSplit = !current.finalHit && current.bossHealth == 1;
+
+		bool levelSplit = !String.IsNullOrEmpty(current.mapFile) &&
+			!String.IsNullOrEmpty(old.mapFile) &&
+			old.mapFile != current.mapFile &&
+			current.isLoading &&
+			!old.mapFile.Contains("challenges/") &&
+			vars.mapFileSplits.Contains(current.mapFile);
+
+		if (finalSplit) {
+			return true;
+		} else if (levelSplit && !vars.visitedMapFiles.Contains(current.mapFile)) {
+			// Track to prevent splitting twice in 100%
+			vars.visitedMapFiles.Add(current.mapFile);
+			return true;
 		}
+		return false;
+	}
 }
 
 isLoading { return current.isLoading; }
