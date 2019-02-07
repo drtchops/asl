@@ -27,22 +27,22 @@ state("Dishonored2", "1.4")
     float z : 0x26DFC08, 0x1E8960, 0xE50, 0x540, 0x10, 0x40, 0x0, 0x44;
     string128 levelName : 0x3E69FF0;
     float screenFade : 0x253B0D0, 0xEEF38, 0x34;
-    uint interaction : 0x2589328, 0x1F6EC0, 0x88, 0x80, 0x4;
-    uint canInteract : 0x2589328, 0x1F6EC0, 0xE90, 0x0;
+    uint interaction : 0x26DFC08, 0x1F6EC0, 0x88, 0x80, 0x4;
+    uint canInteract : 0x26DFC08, 0x1F6EC0, 0xE90, 0x0;
 }
 
-state("Dishonored2", "1.8")
+state("Dishonored2", "1.9")
 {
-    // 1.77.8.9
-    // 174456832
-    bool isLoading : 0x27191E8;// Alternatively 0x27191F4 and 0x3A65C78
-    float x : 0x2719508, 0x1E8960, 0xE58, 0x540, 0x10, 0x40, 0x0, 0x3C;
-    float y : 0x2719508, 0x1E8960, 0xE58, 0x540, 0x10, 0x40, 0x0, 0x40;
-    float z : 0x2719508, 0x1E8960, 0xE58, 0x540, 0x10, 0x40, 0x0, 0x44;
-    string128 levelName : 0x3EADBB0;
-    float screenFade : 0x254EA18, 0xEEF38, 0x34;
-    uint interaction : 0x0259CC68, 0x1F6EE8, 0x88, 0x80, 0x4;
-    uint canInteract : 0x0259CC68, 0x1F6EE8, 0x13B0, 0x0;
+    // 1.77.9.0
+    // 70369280
+    bool isLoading : 0x288D2E8;// Alternatively 0x3BDA0A8
+    float x : 0x288D608, 0x1E8960, 0xE58, 0x540, 0x10, 0x40, 0x0, 0x3C;
+    float y : 0x288D608, 0x1E8960, 0xE58, 0x540, 0x10, 0x40, 0x0, 0x40;
+    float z : 0x288D608, 0x1E8960, 0xE58, 0x540, 0x10, 0x40, 0x0, 0x44;
+    string128 levelName : 0x4025C50;
+    float screenFade : 0x26C2B10, 0xEEF38, 0x34;
+    uint interaction : 0x288D608, 0x1F6EE8, 0x88, 0x80, 0x4;
+    uint canInteract : 0x288D608, 0x1F6EE8, 0x13B0, 0x0;
 }
 
 startup {
@@ -76,11 +76,12 @@ startup {
 init
 {
     switch (modules.First().ModuleMemorySize) {
-        case 174456832: version = "1.8"; break;
+        case  70369280: version = "1.9"; break;
         case 163115008: version = "1.4"; break;
         case 166068224: version = "1.3"; break;
         default:        version = ""; break;
     }
+
     // print(modules.First().FileVersionInfo.FileVersion);
     // print(modules.First().ModuleMemorySize.ToString());
 
@@ -113,7 +114,7 @@ update
     if (old.isLoading || current.isLoading) {
         vars.runStarting =
             current.levelName.Equals("campaign/dunwall/escape/tower/dunwall_escape_tower_p") &&
-        // Check if inside starting area
+        // Check if inside starting area.
             current.x>posX-delta && current.x < posX+delta &&
             current.y>posY-delta && current.y < posY+delta &&
             current.z>posZ-delta && current.z < posZ+delta;
@@ -154,13 +155,13 @@ split
         }
     } else if(vars.autoSplitIndex == vars.autoSplits.Length && settings["autosplit_end"]) {
         bool isFadingOut = (current.screenFade > old.screenFade && current.screenFade < 1.0f);
-        
-        // For some reason 0x4B indicates that we can interact with something
+
+        // For some reason 0x4B indicates that we can interact with something.
         bool canInteract = (current.canInteract == 0x4B);
-        
-        // 0x9C673C93 is the id (possibly a hash) for "Revive your father", 0xA2674605 is for "Revive your daughter"
+
+        // 0x9C673C93 is the id (possibly a hash) for "Revive your father", 0xA2674605 is for "Revive your daughter".
         bool isFinalInteraction = (current.interaction == 0x9C673C93 || current.interaction == 0xA2674605);
-        
+
         if(isFadingOut && canInteract && isFinalInteraction) {
             ++vars.autoSplitIndex;
             return true;
