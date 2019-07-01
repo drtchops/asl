@@ -34,6 +34,7 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Fallout 3
 - Fallout: New Vegas
 - Judge Dredd: Dredd vs. Death
+- Lego Batman: The Videogame
 - Mass Effect
 - Penumbra: Black Plague
 - Resident Evil 4 (by LetsGetPitted)

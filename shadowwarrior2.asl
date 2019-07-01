@@ -58,6 +58,14 @@ state("ShadowWarrior2", "1.1.11.0")
     bool isGameplay : 0x18AFC98;
 }
 
+state("ShadowWarrior2", "1.1.14.0")
+{
+    // 1.1.14.0 - 2018-02-17
+    // Edit by Mr. Mary - it seems to remove loads where the others do, but there might be a better address to hook onto.
+    // Tested on GOG release
+    bool isGameplay : 0x18AE808;
+}
+
 init
 {
     version = modules.First().FileVersionInfo.FileVersion;
