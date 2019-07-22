@@ -1,19 +1,56 @@
-state("Morrowind")
+state("Morrowind", "v1.0")
 {
-    string50 cell : 0x3AEA88, 0xB540, 0x10, 0;
+	string50 cell : 0x3AEA88, 0xB540, 0x10, 0;
     string50 region : 0x3AEA88, 0xB540, 0x8C, 0x30;
     // float playerX : 0x3AEA88, 0, 0xAC40, 0x38;
     // float playerY : 0x3AEA88, 0, 0xAC40, 0x3C;
     // float playerZ : 0x3AEA88, 0, 0xAC40, 0x40;
     bool playerControlsDisabled : 0x3AEA84, 0x5C, 0x24, 0, 0x5A0;
-    bool loadingScreenVisible : 0x3BBCE0;
-    // float gameTime : 0x3AE9B0;
+	bool loadingScreenVisible : 0x3BBCE0;
+    bool extraLoadingCheck : 0x3B0704;
+	float fadeInTime : 0x3AEA84, 0x348, 0x4;
+	// Not 100% certain what this address correlates to but the behavior is as follows
+	// 255 when loading or walking around (no menus). 0 When dialog/menu are open... UNLESS mousing over a dialog border, then 1.
+	byte dialogIcon : 0x3AEA84, 0x50, 0x14; 
+    float gameTime : 0x3AE9B0; 
+}
+
+state("Morrowind", "goty")
+{
+    string50 cell : 0x3C67E0, 0xB540, 0x10, 0;
+    string50 region : 0x3C67E0, 0xB540, 0x90, 0x30;
+    // float playerX : 0x3AEA88, 0, 0xAC40, 0x38;
+    // float playerY : 0x3AEA88, 0, 0xAC40, 0x3C;
+    // float playerZ : 0x3AEA88, 0, 0xAC40, 0x40;
+    bool playerControlsDisabled : 0x003C67DC, 0x5C, 0x24, 0x0, 0x5B0;
+	bool loadingScreenVisible : 0x3D4294;
+    bool extraLoadingCheck : 0x3C85B8;
+	float fadeInTime : 0x3C67DC, 0x354, 0x4;
+	// Not 100% certain what this address correlates to but the behavior is as follows
+	// 255 when loading or walking around (no menus). 0 When dialog/menu are open... UNLESS mousing over a dialog border, then 1.
+	byte dialogIcon : 0x3C67DC, 0x50, 0x14; 
+    float gameTime : 0x3C6708;
+}
+
+init
+{
+	print("[Morrowind NoLoads] Module size: " + modules.First().ModuleMemorySize);
+	if (modules.First().ModuleMemorySize == 4431872)
+	{
+		version = "goty";
+	}
+	else if (modules.First().ModuleMemorySize == 3981312)
+	{
+		version = "v1.0";
+	}
 }
 
 startup
 {
     vars.prevPhase = null;
     vars.isLoading = false;
+	vars.wasLoading = false;
+	vars.loadingChecks = 0;
     vars.doStart = false;
     vars.doSplit = false;
     vars.doReset = false;
@@ -77,7 +114,31 @@ update
     }
 
     vars.prevPhase = timer.CurrentPhase;
-    vars.isLoading = current.loadingScreenVisible;
+	// Always trust the original loading screen visible
+	// Extra loading check added as loadingScreenVisible doesn't handle all cases
+	// Extra loading check has a few edge cases (something to do with dialog immediately after journal entry). Check if we still fading in/out
+    vars.isLoading = current.loadingScreenVisible || (current.extraLoadingCheck && current.dialogIcon > 1 && current.fadeInTime > 0.0);
+    vars.wasLoading = old.loadingScreenVisible || (old.extraLoadingCheck && old.dialogIcon > 1 && old.fadeInTime > 0.0); 
+	
+	if (vars.isLoading)
+	{
+		if (!vars.wasLoading)
+		{
+			print("[Morrowind NoLoads] Started Loading. " + DateTime.Now + "("+ DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond + ") Variables: current.loadingScreenVisible " +current.loadingScreenVisible+ " current.extraLoadingCheck " +current.extraLoadingCheck+ " current.dialogIcon " +current.dialogIcon + " last gametime " + old.gameTime + " current gameTime " + current.gameTime);
+		}
+		
+		vars.loadingChecks++;
+	}
+	else
+	{
+		if (vars.wasLoading)
+		{
+			print("[Morrowind NoLoads] Finished Loading after " + vars.loadingChecks + " checks. " + DateTime.Now + "("+ DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond + ") Variables: current.loadingScreenVisible " +current.loadingScreenVisible+ " current.extraLoadingCheck " +current.extraLoadingCheck+ " current.dialogIcon " +current.dialogIcon + " last gametime " + old.gameTime + " current gameTime " + current.gameTime);
+			
+			vars.loadingChecks = 0;
+		}
+	}
+
     vars.doStart = false;
     vars.doSplit = false;
     vars.doReset = false;
