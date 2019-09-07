@@ -115,9 +115,9 @@ update
         vars.runStarting =
             current.levelName.Equals("campaign/dunwall/escape/tower/dunwall_escape_tower_p") &&
         // Check if inside starting area.
-            current.x>posX-delta && current.x < posX+delta &&
-            current.y>posY-delta && current.y < posY+delta &&
-            current.z>posZ-delta && current.z < posZ+delta;
+            posX-delta < current.x && current.x < posX+delta &&
+            posY-delta < current.y && current.y < posY+delta &&
+            posZ-delta < current.z && current.z < posZ+delta;
 
         if(vars.runStarting){
             for (vars.autoSplitIndex = 0;vars.autoSplitIndex < vars.autoSplits.Length;++vars.autoSplitIndex) {
@@ -154,10 +154,12 @@ split
             return true;
         }
     } else if(vars.autoSplitIndex == vars.autoSplits.Length && settings["autosplit_end"]) {
-        bool isFadingOut = (current.screenFade > old.screenFade && current.screenFade < 1.0f);
+        bool isFadingOut = (old.screenFade < current.screenFade && current.screenFade < 1.0f);
 
         // For some reason 0x4B indicates that we can interact with something.
-        bool canInteract = (current.canInteract == 0x4B);
+        // Also, if it just changed, we assume the user can interact.
+        // This is necessary since `canInteract` is only updated on the second frame.
+        bool canInteract = (current.canInteract == 0x4B || old.interaction != current.interaction);
 
         // 0x9C673C93 is the id (possibly a hash) for "Revive your father", 0xA2674605 is for "Revive your daughter".
         bool isFinalInteraction = (current.interaction == 0x9C673C93 || current.interaction == 0xA2674605);
