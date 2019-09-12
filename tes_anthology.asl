@@ -10,8 +10,31 @@ state("DOSBox")
 
 state("Morrowind")
 {
-    // TES 3: Morrowind
+    // TES 3: Morrowind, unknown version
+}
+
+state("Morrowind", "1.0")
+{
+    // TES 3: Morrowind, original version
+    // size 3981312
     bool loadingScreenVisible : 0x3BBCE0;
+    bool extraLoadingCheck : 0x3B0704;
+    float fadeInTime : 0x3AEA84, 0x348, 0x4;
+    // Not 100% certain what this address correlates to but the behavior is as follows
+    // 255 when loading or walking around (no menus). 0 When dialog/menu are open... UNLESS mousing over a dialog border, then 1.
+    byte dialogIcon : 0x3AEA84, 0x50, 0x14;
+}
+
+state("Morrowind", "goty")
+{
+    // TES 3: Morrowind, goty version
+    // size 4431872
+    bool loadingScreenVisible : 0x3D4294;
+    bool extraLoadingCheck : 0x3C85B8;
+    float fadeInTime : 0x3C67DC, 0x354, 0x4;
+    // Not 100% certain what this address correlates to but the behavior is as follows
+    // 255 when loading or walking around (no menus). 0 When dialog/menu are open... UNLESS mousing over a dialog border, then 1.
+    byte dialogIcon : 0x3C67DC, 0x50, 0x14;
 }
 
 state("Oblivion")
@@ -51,23 +74,25 @@ init
 {
     vars.prevPhase = timer.CurrentPhase;
     vars.isLoading = false;
+    version = ""
 
-    if (game.ProcessName == "Oblivion") {
-        version = modules.First().FileVersionInfo.FileVersion;
-        if (version == "1.0.228") {
+    if (game.ProcessName == "Morrowind") {
+        if (modules.First().ModuleMemorySize == 4431872) {
+            version = "goty";
+        } else if (modules.First().ModuleMemorySize == 3981312) {
+            version = "1.0"
+        }
+    } else if (game.ProcessName == "Oblivion") {
+        if (modules.First().FileVersionInfo.FileVersion == "1.0.228") {
             version = "1.0";
-        } else if (version == "1.2.0416") {
+        } else if (modules.First().FileVersionInfo.FileVersion == "1.2.0416") {
             version = "1.2";
-        } else {
-            version = "";
         }
 
         vars.dontLoad = false;
         vars.mapTravel = false;
         vars.guardWarp = false;
         vars.guardWarp2 = false;
-    } else {
-        version = "";
     }
 }
 
@@ -82,7 +107,7 @@ update
         vars.isLoading = true;
 
     } else if (game.ProcessName == "Morrowind") {
-        vars.isLoading = current.loadingScreenVisible;
+        vars.isLoading = current.loadingScreenVisible || (current.extraLoadingCheck && current.dialogIcon > 1 && current.fadeInTime > 0.0);
 
     } else if (game.ProcessName == "Oblivion" && version != "") {
         if (timer.CurrentPhase == TimerPhase.Running && vars.prevPhase == TimerPhase.NotRunning) {
