@@ -26,7 +26,7 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Bioshock Trilogy (by MrWalrus, Glurmo, Dread, and me)
 - Cornerstone: The Song of Tyrim (by Dalet)
 - Deus Ex: Mankind Divided
-- Dishonored 2
+- Dishonored 2 (by Some1Lse and me)
 - Doom (2016) (by a lot of people)
 - Dragon Age: Origins (by Letterswords)
 - Dragon Age 2
@@ -40,9 +40,9 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Resident Evil 4 (by LetsGetPitted)
 - Rot Gut
 - The Elder Scrolls: Anthology
-- The Elder Scrolls III: Morrowind (by Fatalis and me)
+- The Elder Scrolls III: Morrowind (by Sychotix, Fatalis, and me)
 - The Elder Scrolls IV: Oblivion (by TheFuncanon and me)
-- Shadow Warrior 2
+- Shadow Warrior 2 (by Tsiggie, marysiamzawka, and me)
 - Titanfall 2
 - Wolfenstein: The New Order
 - Wolfenstein: The Old Blood
