@@ -27,293 +27,293 @@
 
 
 state("DOOMx64", "6, 1, 1, 527") {
-	bool isLoading: 0x308C930;
-	bool canStart: 0x2839D44;
-	bool start: 0x337CA9C;
-	bool mainMenu: 0xAD03804;
-	string20 mapName: 0x318AFE8;
-	float bossHealth: 0x03084EF8, 0x30, 0x4E8, 0x2D8, 0x1B4;
-	bool finalHit: 0x308CB7C;
+    bool isLoading: 0x308C930;
+    bool canStart: 0x2839D44;
+    bool start: 0x337CA9C;
+    bool mainMenu: 0xAD03804;
+    string20 mapName: 0x318AFE8;
+    float bossHealth: 0x03084EF8, 0x30, 0x4E8, 0x2D8, 0x1B4;
+    bool finalHit: 0x308CB7C;
 }
 
 state("DOOMx64", "6, 1, 1, 706") {
-	// Timer restart when you exit a loading screen
-	// (You have to press space)
-	// So basically here you can chill during loading
-	bool isLoading: 0x31D3B10;
-	
-	// Timer restart when "real" loading is finished
-	// (even if you don't press space, the time WILL start)
-	// Here you need to spam the spacebar during loading screen
-	// bool isLoading: 0xB99B1E4;
-	
-	bool canStart: 0x297CF3A;
-	bool start: 0x34C5304;
-	bool finalHit: 0x31D3F74;
-	float bossHealth: 0x31CC008, 0x30, 0x4E8, 0x2D8, 0x1B4;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+    // Timer restart when you exit a loading screen
+    // (You have to press space)
+    // So basically here you can chill during loading
+    bool isLoading: 0x31D3B10;
+    
+    // Timer restart when "real" loading is finished
+    // (even if you don't press space, the time WILL start)
+    // Here you need to spam the spacebar during loading screen
+    // bool isLoading: 0xB99B1E4;
+    
+    bool canStart: 0x297CF3A;
+    bool start: 0x34C5304;
+    bool finalHit: 0x31D3F74;
+    float bossHealth: 0x31CC008, 0x30, 0x4E8, 0x2D8, 0x1B4;
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64", "6, 1, 1, 808") {
-	bool isLoading: 0x31D13C0;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+    bool isLoading: 0x31D13C0;
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64vk", "6, 1, 1, 808") {
-	bool isLoading: 0x4CE5AB0;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+    bool isLoading: 0x4CE5AB0;
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64", "6, 1, 1, 920") {
-	float bossHealth: 0x322EEB8, 0x30, 0x4E8, 0x2E0, 0x1B4;
-	bool canStart: 0x29B41DA;
-	bool start: 0x3562DB0;
-	bool isLoading: 0x3236CD0;
-	bool finalHit: 0x3237134;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+    float bossHealth: 0x322EEB8, 0x30, 0x4E8, 0x2E0, 0x1B4;
+    bool canStart: 0x29B41DA;
+    bool start: 0x3562DB0;
+    bool isLoading: 0x3236CD0;
+    bool finalHit: 0x3237134;
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64vk", "6, 1, 1, 920") {
-	float bossHealth: 0x0492AF48, 0x30, 0x4E8, 0x2E0, 0x1B4;
-	bool start: 0x4C620D4;
-	bool canStart: 0x2947314;
-	bool finalHit: 0x49332E4;
-	bool isLoading: 0x4932E80;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+    float bossHealth: 0x0492AF48, 0x30, 0x4E8, 0x2E0, 0x1B4;
+    bool start: 0x4C620D4;
+    bool canStart: 0x2947314;
+    bool finalHit: 0x49332E4;
+    bool isLoading: 0x4932E80;
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64", "6, 1, 1, 1012") {
-	float bossHealth: 0x0330D838, 0x30, 0x4E8, 0x2E0, 0x1B8; 
-	bool start: 0x362E9BC;
-	bool canStart: 0x2A4D304;
-	bool finalHit: 0x3315AF4;
-	bool isLoading: 0x3315690;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+    float bossHealth: 0x0330D838, 0x30, 0x4E8, 0x2E0, 0x1B8; 
+    bool start: 0x362E9BC;
+    bool canStart: 0x2A4D304;
+    bool finalHit: 0x3315AF4;
+    bool isLoading: 0x3315690;
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64vk", "6, 1, 1, 1012") {
-	float bossHealth: 0x04A0A918, 0x30, 0x4E8, 0x2E0, 0x1B8;
-	bool start: 0x4D2ED84;
-	bool canStart: 0x2A2F804;
-	bool finalHit: 0x4A12CE4;
-	bool isLoading: 0x4E47580;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+    float bossHealth: 0x04A0A918, 0x30, 0x4E8, 0x2E0, 0x1B8;
+    bool start: 0x4D2ED84;
+    bool canStart: 0x2A2F804;
+    bool finalHit: 0x4A12CE4;
+    bool isLoading: 0x4E47580;
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64", "6, 1, 1, 1109") {
-	float bossHealth: 0x0330D838, 0x30, 0x4E8, 0x2E0, 0x1B8; 
-	bool start: 0x362E9BC;
-	bool canStart: 0x2A4D304;
-	bool finalHit: 0x3315AF4;
-	bool isLoading: 0x3315690;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+    float bossHealth: 0x0330D838, 0x30, 0x4E8, 0x2E0, 0x1B8; 
+    bool start: 0x362E9BC;
+    bool canStart: 0x2A4D304;
+    bool finalHit: 0x3315AF4;
+    bool isLoading: 0x3315690;
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64vk", "6, 1, 1, 1109") {
-	float bossHealth: 0x04A0A918, 0x30, 0x4E8, 0x2E0, 0x1B8;
-	bool start: 0x4D2ED84;
-	bool canStart: 0x2A2F804;
-	bool finalHit: 0x4A12CE4;
-	bool isLoading: 0x4E47580;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+    float bossHealth: 0x04A0A918, 0x30, 0x4E8, 0x2E0, 0x1B8;
+    bool start: 0x4D2ED84;
+    bool canStart: 0x2A2F804;
+    bool finalHit: 0x4A12CE4;
+    bool isLoading: 0x4E47580;
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 state("DOOMx64", "6, 1, 1, 1201") {
-	float bossHealth: 0x0330D838, 0x30, 0x4E8, 0x2E0, 0x1B8;        //NOT UPDATED YET
-	bool start: 0x362E9BC;                                          //NOT UPDATED YET
-	bool canStart: 0x2A4D304;                                       //NOT UPDATED YET
-	bool finalHit: 0x3315AF4;                                       //NOT UPDATED YET
-	bool isLoading: 0x3315690;                                      //NOT UPDATED YET
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;               //NOT UPDATED YET
+    float bossHealth: 0x0330D838, 0x30, 0x4E8, 0x2E0, 0x1B8;        //NOT UPDATED YET
+    bool start: 0x362E9BC;                                          //NOT UPDATED YET
+    bool canStart: 0x2A4D304;                                       //NOT UPDATED YET
+    bool finalHit: 0x3315AF4;                                       //NOT UPDATED YET
+    bool isLoading: 0x3315690;                                      //NOT UPDATED YET
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;               //NOT UPDATED YET
 }                                                                   
 
 state("DOOMx64vk", "6, 1, 1, 1201") {
-	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;      
-	bool start: 0x5684168;                          		
-	bool canStart: 0x2C14A44;                       		
-	bool finalHit: 0x535F274;                       		
-	bool isLoading: 0x535EE10;                      		
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  		
+    float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;      
+    bool start: 0x5684168;                          		
+    bool canStart: 0x2C14A44;                       		
+    bool finalHit: 0x535F274;                       		
+    bool isLoading: 0x535EE10;                      		
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  		
 }
 
 state("DOOMx64", "6, 1, 1, 1219") {
-	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;        //NOT UPDATED YET
-	bool start: 0x5684168;                          				//NOT UPDATED YET
-	bool canStart: 0x2C14A44;                       				//NOT UPDATED YET
-	bool finalHit: 0x535F274;                       				//NOT UPDATED YET
-	bool isLoading: 0x535EE10;                      				//NOT UPDATED YET
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  				//NOT UPDATED YET
+    float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;        //NOT UPDATED YET
+    bool start: 0x5684168;                          				//NOT UPDATED YET
+    bool canStart: 0x2C14A44;                       				//NOT UPDATED YET
+    bool finalHit: 0x535F274;                       				//NOT UPDATED YET
+    bool isLoading: 0x535EE10;                      				//NOT UPDATED YET
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  				//NOT UPDATED YET
 }
 
 state("DOOMx64vk", "6, 1, 1, 1219") {
-	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;      
-	bool start: 0x5684168;                          		
-	bool canStart: 0x2C14A44;                       		
-	bool finalHit: 0x535F274;                       		
-	bool isLoading: 0x535EE10;                      		
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  		
+    float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;      
+    bool start: 0x5684168;                          		
+    bool canStart: 0x2C14A44;                       		
+    bool finalHit: 0x535F274;                       		
+    bool isLoading: 0x535EE10;                      		
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  		
 }
 
 state("DOOMx64", "6, 1, 1, 531") {
-	float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;        //NOT UPDATED YET
-	bool start: 0x57BDEE0;                          				//NOT UPDATED YET
-	bool canStart: 0x54DC3D8;                       				//NOT UPDATED YET
-	bool finalHit: 0x535F274;                       				//NOT UPDATED YET
-	bool isLoading: 0x56844C9;                      				//NOT UPDATED YET
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  				//NOT UPDATED YET
+    float bossHealth: 0x04C08DC0, 0x30, 0x4E8, 0x2E0, 0x1B4;        //NOT UPDATED YET
+    bool start: 0x57BDEE0;                          				//NOT UPDATED YET
+    bool canStart: 0x54DC3D8;                       				//NOT UPDATED YET
+    bool finalHit: 0x535F274;                       				//NOT UPDATED YET
+    bool isLoading: 0x56844C9;                      				//NOT UPDATED YET
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;  				//NOT UPDATED YET
 }
 
 state("DOOMx64vk", "6, 1, 1, 531") {
-	float bossHealth: 0x4C6F9D0, 0x30, 0x4E8, 0x2F0, 0x1B4;
-	bool start: 0x57BDEE0;
-	bool canStart: 0x54DC3D8;
-	bool finalHit: 0x53C5DD4;
-	bool isLoading: 0x56844C9;
-	string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
+    float bossHealth: 0x4C6F9D0, 0x30, 0x4E8, 0x2F0, 0x1B4;
+    bool start: 0x57BDEE0;
+    bool canStart: 0x54DC3D8;
+    bool finalHit: 0x53C5DD4;
+    bool isLoading: 0x56844C9;
+    string35 mapName: "tier0_s64.dll", 0x4E170, 0x17;
 }
 
 // 2017-08-24 Patch
 state("DOOMx64vk", "6, 1, 1, 818") {
-	float bossHealth: 0x2B0F3C0, 0x2CD80, 0x2B78; 		// Fixed
-	bool start: 0x5686EE0;								// confirmed working
-	bool canStart: 0x53A53D8;							// confirmed working
-	bool finalHit: 0x528EDB4;							// confirmed working
-	bool isLoading: 0x554D4C9;							// confirmed working
-	
-	string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
-	string60 mapFile: 0x556B325;
+    float bossHealth: 0x2B0F3C0, 0x2CD80, 0x2B78; 		// Fixed
+    bool start: 0x5686EE0;								// confirmed working
+    bool canStart: 0x53A53D8;							// confirmed working
+    bool finalHit: 0x528EDB4;							// confirmed working
+    bool isLoading: 0x554D4C9;							// confirmed working
+    
+    string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
+    string60 mapFile: 0x556B325;
 }
 
 // 2018-03-29 Patch (Latest)
 state("DOOMx64vk", "6, 1, 1, 321") {
-	float bossHealth: 0x307EF08, 0x2CD80, 0x2B78;
-	bool start: 0x597FCD0;
-	bool canStart: 0x56BF5D8;
-	bool finalHit: 0x5557504;
-	bool isLoading: 0x5845a29;
+    float bossHealth: 0x307EF08, 0x2CD80, 0x2B78;
+    bool start: 0x597FCD0;
+    bool canStart: 0x56BF5D8;
+    bool finalHit: 0x5557504;
+    bool isLoading: 0x5845a29;
 
-	string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
-	string60 mapFile: 0x5862785;
+    string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
+    string60 mapFile: 0x5862785;
 }
 
 startup {
-	vars.visitedMapFiles = new List<string>();
-	vars.introMapFile = "game/sp/intro/intro"; // UAC
-	vars.mapFileSplits = new List<string>() {
-		"game/sp/resource_ops/resource_ops", // Resource Operations
-		"game/sp/resource_ops_foundry/resource_ops_foundry", // Foundry
-		"game/sp/surface1/surface1", // Argent Facility
-		"game/sp/argent_tower/argent_tower", // Argent Energy Tower
-		"game/sp/blood_keep/blood_keep", // Kadingir Sanctum
-		"game/sp/surface2/surface2", // Argent Facility (Destroyed)
-		"game/sp/bfg_division/bfg_division", // Advanced Research Complex
-		"game/sp/lazarus/lazarus", // Lazarus Labs (1)
-		// "game/sp/lazarus_2/lazarus_2", // Lazarus Labs (2) - mid-level loadscreen
-		"game/sp/blood_keep_b/blood_keep_b", // Titan's Realm
-		"game/sp/blood_keep_c/blood_keep_c", // The Necropolis
-		"game/sp/polar_core/polar_core", // VEGA Central Processing
-		"game/sp/titan/titan", // Argent D'Nur
-	};
+    vars.visitedMapFiles = new List<string>();
+    vars.introMapFile = "game/sp/intro/intro"; // UAC
+    vars.mapFileSplits = new List<string>() {
+        "game/sp/resource_ops/resource_ops", // Resource Operations
+        "game/sp/resource_ops_foundry/resource_ops_foundry", // Foundry
+        "game/sp/surface1/surface1", // Argent Facility
+        "game/sp/argent_tower/argent_tower", // Argent Energy Tower
+        "game/sp/blood_keep/blood_keep", // Kadingir Sanctum
+        "game/sp/surface2/surface2", // Argent Facility (Destroyed)
+        "game/sp/bfg_division/bfg_division", // Advanced Research Complex
+        "game/sp/lazarus/lazarus", // Lazarus Labs (1)
+        // "game/sp/lazarus_2/lazarus_2", // Lazarus Labs (2) - mid-level loadscreen
+        "game/sp/blood_keep_b/blood_keep_b", // Titan's Realm
+        "game/sp/blood_keep_c/blood_keep_c", // The Necropolis
+        "game/sp/polar_core/polar_core", // VEGA Central Processing
+        "game/sp/titan/titan", // Argent D'Nur
+    };
 }
 
 init {
-	version = modules.First().FileVersionInfo.FileVersion;
-	print(version);
+    version = modules.First().FileVersionInfo.FileVersion;
+    print(version);
 }
 
 exit { timer.IsGameTimePaused = true; }
 
 start {
-	vars.visitedMapFiles = new List<string>();
-	if (version == "6, 1, 1, 527") {
-		return (
-			!old.start &&
-			current.start &&
-			!current.isLoading &&
-			current.canStart &&
-			current.mapName.StartsWith("intro")
-		);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
-		// Start the timer only if it's not running
-		// Mapname contains The UAC, we're not loading anything,  We used to be in the intro and we're not anymore
-		return (
-			!current.isLoading &&
-			!old.start &&
-			current.start &&
-			current.canStart &&
-			current.mapName.Contains("The UAC")
-		);
-	} else if (version == "6, 1, 1, 818" || version == "6, 1, 1, 321") {
-		// Latest 2 patches
-		return (
-			!current.isLoading &&
-			!old.start &&
-			current.start &&
-			current.canStart &&
-			current.mapFile == vars.introMapFile
-		);
-	}
+    vars.visitedMapFiles = new List<string>();
+    if (version == "6, 1, 1, 527") {
+        return (
+            !old.start &&
+            current.start &&
+            !current.isLoading &&
+            current.canStart &&
+            current.mapName.StartsWith("intro")
+        );
+    } else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
+        // Start the timer only if it's not running
+        // Mapname contains The UAC, we're not loading anything,  We used to be in the intro and we're not anymore
+        return (
+            !current.isLoading &&
+            !old.start &&
+            current.start &&
+            current.canStart &&
+            current.mapName.Contains("The UAC")
+        );
+    } else if (version == "6, 1, 1, 818" || version == "6, 1, 1, 321") {
+        // Latest 2 patches
+        return (
+            !current.isLoading &&
+            !old.start &&
+            current.start &&
+            current.canStart &&
+            current.mapFile == vars.introMapFile
+        );
+    }
 }
 
 split {
-	if (version == "6, 1, 1, 527") {
-		return (
-			!String.IsNullOrEmpty(current.mapName) &&
-			old.mapName != current.mapName &&
-			!old.mainMenu
-		) || (
-			!current.finalHit &&
-			current.bossHealth == 1);	
-	} else if (version == "6, 1, 1, 808") {
-		return (
-			!String.IsNullOrEmpty(current.mapName) &&
-			!String.IsNullOrEmpty(old.mapName) &&
-			old.mapName != current.mapName &&
-			!old.mapName.Contains("menu") &&
-			!old.mapName.Contains("playing") &&
-			!old.mapName.Contains("a boss") &&
-			!current.mapName.Contains("menu") &&
-			!current.mapName.Contains("playing") &&
-			!current.mapName.Contains("a boss")
-			);
-	} else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
-		return (
-			!String.IsNullOrEmpty(current.mapName) &&
-			!String.IsNullOrEmpty(old.mapName) &&
-			old.mapName != current.mapName &&
-			!old.mapName.Contains("menu") &&
-			!old.mapName.Contains("playing") &&
-			!old.mapName.Contains("a boss") &&
-			!current.mapName.Contains("menu") &&
-			!current.mapName.Contains("playing") &&
-			!current.mapName.Contains("a boss") &&
-			!current.mapName.Contains("The UAC") && // Start timer, but don't split for UAC
-			!current.mapName.Contains("Rune Trial") && // Ignore rune loadscreens for 100%
-			current.isLoading // Ignore mapName change for death in UN
-			) || (
-			!current.finalHit &&
-			current.bossHealth == 1
-		);
-	} else if (version == "6, 1, 1, 818" || version == "6, 1, 1, 321") {
-		// Latest 2 patches (2018-03-29, 2017-08-24)
-		bool finalSplit = !current.finalHit && current.bossHealth == 1;
+    if (version == "6, 1, 1, 527") {
+        return (
+            !String.IsNullOrEmpty(current.mapName) &&
+            old.mapName != current.mapName &&
+            !old.mainMenu
+        ) || (
+            !current.finalHit &&
+            current.bossHealth == 1);	
+    } else if (version == "6, 1, 1, 808") {
+        return (
+            !String.IsNullOrEmpty(current.mapName) &&
+            !String.IsNullOrEmpty(old.mapName) &&
+            old.mapName != current.mapName &&
+            !old.mapName.Contains("menu") &&
+            !old.mapName.Contains("playing") &&
+            !old.mapName.Contains("a boss") &&
+            !current.mapName.Contains("menu") &&
+            !current.mapName.Contains("playing") &&
+            !current.mapName.Contains("a boss")
+            );
+    } else if (version == "6, 1, 1, 706" || version == "6, 1, 1, 920" || version == "6, 1, 1, 1012" || version == "6, 1, 1, 1109" || version == "6, 1, 1, 1201" || version == "6, 1, 1, 1219" || version == "6, 1, 1, 531") {
+        return (
+            !String.IsNullOrEmpty(current.mapName) &&
+            !String.IsNullOrEmpty(old.mapName) &&
+            old.mapName != current.mapName &&
+            !old.mapName.Contains("menu") &&
+            !old.mapName.Contains("playing") &&
+            !old.mapName.Contains("a boss") &&
+            !current.mapName.Contains("menu") &&
+            !current.mapName.Contains("playing") &&
+            !current.mapName.Contains("a boss") &&
+            !current.mapName.Contains("The UAC") && // Start timer, but don't split for UAC
+            !current.mapName.Contains("Rune Trial") && // Ignore rune loadscreens for 100%
+            current.isLoading // Ignore mapName change for death in UN
+            ) || (
+            !current.finalHit &&
+            current.bossHealth == 1
+        );
+    } else if (version == "6, 1, 1, 818" || version == "6, 1, 1, 321") {
+        // Latest 2 patches (2018-03-29, 2017-08-24)
+        bool finalSplit = !current.finalHit && current.bossHealth == 1;
 
-		bool levelSplit = !String.IsNullOrEmpty(current.mapFile) &&
-			!String.IsNullOrEmpty(old.mapFile) &&
-			old.mapFile != current.mapFile &&
-			current.isLoading &&
-			!old.mapFile.Contains("challenges/") &&
-			vars.mapFileSplits.Contains(current.mapFile);
+        bool levelSplit = !String.IsNullOrEmpty(current.mapFile) &&
+            !String.IsNullOrEmpty(old.mapFile) &&
+            old.mapFile != current.mapFile &&
+            current.isLoading &&
+            !old.mapFile.Contains("challenges/") &&
+            vars.mapFileSplits.Contains(current.mapFile);
 
-		if (finalSplit) {
-			return true;
-		} else if (levelSplit && !vars.visitedMapFiles.Contains(current.mapFile)) {
-			// Track to prevent splitting twice in 100%
-			vars.visitedMapFiles.Add(current.mapFile);
-			return true;
-		}
-		return false;
-	}
+        if (finalSplit) {
+            return true;
+        } else if (levelSplit && !vars.visitedMapFiles.Contains(current.mapFile)) {
+            // Track to prevent splitting twice in 100%
+            vars.visitedMapFiles.Add(current.mapFile);
+            return true;
+        }
+        return false;
+    }
 }
 
 isLoading { return current.isLoading; }
