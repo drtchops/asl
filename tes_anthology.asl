@@ -74,13 +74,13 @@ init
 {
     vars.prevPhase = timer.CurrentPhase;
     vars.isLoading = false;
-    version = ""
+    version = "";
 
     if (game.ProcessName == "Morrowind") {
         if (modules.First().ModuleMemorySize == 4431872) {
             version = "goty";
         } else if (modules.First().ModuleMemorySize == 3981312) {
-            version = "1.0"
+            version = "1.0";
         }
     } else if (game.ProcessName == "Oblivion") {
         if (modules.First().FileVersionInfo.FileVersion == "1.0.228") {
