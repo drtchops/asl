@@ -187,7 +187,7 @@ state("DOOMx64vk", "6, 1, 1, 818") {
     string60 mapFile: 0x556B325;
 }
 
-// 2018-03-29 Patch (Latest)
+// 2018-03-29 Patch (Latest, OpenGL)
 state("DOOMx64", "6, 1, 1, 321") {
     float bossHealth: 0x036F9E08, 0x30, 0x4D0, 0x420, 0x2F8, 0x20, 0x2F0, 0x1B4;
     bool start: 0x427EA00;
@@ -199,6 +199,7 @@ state("DOOMx64", "6, 1, 1, 321") {
     string60 mapFile: 0x415FE15;
 }
 
+// 2018-03-29 Patch (Latest, Vulkan)
 state("DOOMx64vk", "6, 1, 1, 321") {
     float bossHealth: 0x307EF08, 0x2CD80, 0x2B78;
     bool start: 0x597FCD0;
