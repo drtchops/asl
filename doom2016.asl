@@ -1,13 +1,16 @@
 // People who collectively worked on this:
 // DrTChops
+// Glurmo
 // TheFuncannon
 // loitho
 // sychotixx
 // Instagibz
 // blairmadison11
+// heny
 // probably more
 
 //===NOTES AND CHANGELOG===//
+//heny						@21\08\20:	Updated the splitter for the latest 6,1,1,321 version to support OpenGL + added setting to optionally split between Lazarus Labs 1 & 2
 //Glurmo						@23\01\19:	Removed steam api ("tier0_s64.dll") dependency to prevent steam client updates breaking autosplitter + Add NG+ support
 //Glurmo						@21\01\19:	Fixed map name pointer for steam update (4.89.17.15) + added skipping of rune loadscreens for 100%
 //Instagibz						@04\04\18:	Updated the splitter for latest 6,1,1,321 version, VULKAN only
@@ -184,19 +187,33 @@ state("DOOMx64vk", "6, 1, 1, 818") {
     string60 mapFile: 0x556B325;
 }
 
-// 2018-03-29 Patch (Latest)
+// 2018-03-29 Patch (Latest, OpenGL)
+state("DOOMx64", "6, 1, 1, 321") {
+    float bossHealth: 0x036F9E08, 0x30, 0x4D0, 0x420, 0x2F8, 0x20, 0x2F0, 0x1B4;
+    bool start: 0x427EA00;
+    bool canStart: 0x2E4A378;
+    bool finalHit: 0x3E59794;
+    bool isLoading: 0x41434D9;
+
+    string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
+    string60 mapFile: 0x415FE15;
+}
+
+// 2018-03-29 Patch (Latest, Vulkan)
 state("DOOMx64vk", "6, 1, 1, 321") {
     float bossHealth: 0x307EF08, 0x2CD80, 0x2B78;
     bool start: 0x597FCD0;
     bool canStart: 0x56BF5D8;
     bool finalHit: 0x5557504;
-    bool isLoading: 0x5845a29;
+    bool isLoading: 0x5845A29;
 
     string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
     string60 mapFile: 0x5862785;
 }
 
 startup {
+    settings.Add("splitBetweenLazarusLabs1And2", false, "Split between Lazarus Labs 1 & 2");
+
     vars.visitedMapFiles = new List<string>();
     vars.introMapFile = "game/sp/intro/intro"; // UAC
     vars.mapFileSplits = new List<string>() {
@@ -208,7 +225,6 @@ startup {
         "game/sp/surface2/surface2", // Argent Facility (Destroyed)
         "game/sp/bfg_division/bfg_division", // Advanced Research Complex
         "game/sp/lazarus/lazarus", // Lazarus Labs (1)
-        // "game/sp/lazarus_2/lazarus_2", // Lazarus Labs (2) - mid-level loadscreen
         "game/sp/blood_keep_b/blood_keep_b", // Titan's Realm
         "game/sp/blood_keep_c/blood_keep_c", // The Necropolis
         "game/sp/polar_core/polar_core", // VEGA Central Processing
@@ -225,6 +241,13 @@ exit { timer.IsGameTimePaused = true; }
 
 start {
     vars.visitedMapFiles = new List<string>();
+
+    if (settings["splitBetweenLazarusLabs1And2"]) {
+        vars.mapFileSplits.Add("game/sp/lazarus_2/lazarus_2");
+    } else {
+        vars.mapFileSplits.Remove("game/sp/lazarus_2/lazarus_2");
+    }
+		
     if (version == "6, 1, 1, 527") {
         return (
             !old.start &&
