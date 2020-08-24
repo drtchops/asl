@@ -261,8 +261,6 @@ startup {
     };
 }
 
-
-
 init {
     vars.hasSplitForIntro = false;
 
@@ -405,16 +403,18 @@ split {
             // Track to prevent splitting twice in 100%
             vars.visitedMapFiles.Add(current.mapFile);
             return true;
-        }  else if (!vars.hasSplitForIntro && settings["splitForIntro"]) { // Optional intro split when smashing the panel
-            bool inUAC = current.mapFile.Equals("game/sp/intro/intro");
-            bool correctIntroSplitXPos = Math.Abs(vars.playerX - (-10152.54)) < 0.1;
-            bool correctIntroSplitYPos = Math.Abs(vars.playerY - (-2685.575)) < 0.1;
-            bool correctIntroSplitZPos = Math.Abs(vars.playerZ - 3148.311) < 0.1;
-            bool correctIntroSplitPos = correctIntroSplitXPos && correctIntroSplitYPos && correctIntroSplitZPos;
+        }  else if (version == "6, 1, 1, 321") {
+            if (!vars.hasSplitForIntro && settings["splitForIntro"]) { // Optional intro split when smashing the panel
+                bool inUAC = current.mapFile.Equals("game/sp/intro/intro");
+                bool correctIntroSplitXPos = Math.Abs(vars.playerX - (-10152.54)) < 0.1;
+                bool correctIntroSplitYPos = Math.Abs(vars.playerY - (-2685.575)) < 0.1;
+                bool correctIntroSplitZPos = Math.Abs(vars.playerZ - 3148.311) < 0.1;
+                bool correctIntroSplitPos = correctIntroSplitXPos && correctIntroSplitYPos && correctIntroSplitZPos;
 
-            if (inUAC && correctIntroSplitPos) {
-                vars.hasSplitForIntro = true;
-                return true;
+                if (inUAC && correctIntroSplitPos) {
+                    vars.hasSplitForIntro = true;
+                    return true;
+                }
             }
         }
         return false;
