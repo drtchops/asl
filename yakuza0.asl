@@ -5,19 +5,16 @@
 
 state("Yakuza0")
 {
-    bool isLoading : 0x132C520, 0xA38, 0x38, 0x4A0, 0x4A0, 0x4A0, 0x1EDC;
+    int isLoading : 0x132C520, 0xA38, 0x38, 0x4A0, 0x4A0, 0x4A0, 0x1EDC;
     string15 result : 0x01305FC8, 0x50, 0x6E2;
 }
 
 isLoading
 {
-    return current.isLoading;
+    return current.isLoading == 1;
 }
 
 split
 {
-    if (current.result == "pjcm_result.sbb" && old.result != "pjcm_result.sbb") 
-    {
-        return true;
-    }
+    return current.result == "pjcm_result.sbb" && old.result != "pjcm_result.sbb";
 }
