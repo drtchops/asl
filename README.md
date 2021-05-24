@@ -46,3 +46,4 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Titanfall 2
 - Wolfenstein: The New Order
 - Wolfenstein: The Old Blood
+- Yakuza 0 (by ToxicTT and me)
