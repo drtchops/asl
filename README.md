@@ -47,3 +47,4 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Wolfenstein: The New Order
 - Wolfenstein: The Old Blood
 - Yakuza 0 (by ToxicTT and me)
+- Yakuza Kiwami (by ToxicTT and me)
