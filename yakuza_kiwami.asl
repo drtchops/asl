@@ -17,6 +17,7 @@ startup
     vars.doStart = false;
     vars.chapter = 1;
     vars.prevPhase = timer.CurrentPhase;
+    vars.prevState = "";
 }
 
 update
@@ -32,8 +33,12 @@ update
     }
     vars.prevPhase = timer.CurrentPhase;
 
-    if (current.gameState1 == "" && old.gameState1 == "pjcm_title_ps3_c.sbb" &&
-        current.gameState3 == "pjcm_syotitle.sbb" && old.gameState3 == "")
+    if (current.gameState1 != "")
+    {
+        vars.prevState = current.gameState1;
+    }
+
+    if (vars.prevState == "pjcm_title_ps3_c.sbb" && current.gameState3 == "pjcm_syotitle.sbb")
     {
         vars.doStart = true;
     }
