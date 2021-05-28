@@ -1,14 +1,13 @@
 // Yakuza Kiwami (PC, Steam) autosplitter & load remover
 // Autosplitter by ToxicTT (Discord: ToxicTT#4487)
 // Load remover by DrTChops
-// v1.0 (2021-05-24)
 
 state("YakuzaKiwami")
 {
     int loadState : 0x19D5050, 0x1E8, 0x4A0, 0x4A0, 0x310, 0x1EDC;
-    string25 gameState1 : 0x0128DD50, 0xC8, 0x490, 0x72;
-    string25 gameState2 : 0x0128DD50, 0xC8, 0x490, 0xBA;
-    string25 gameState3 : 0x0128DD50, 0xC8, 0x490, 0x102;
+    string25 gameState1 : 0x128DD50, 0xC8, 0x490, 0x72;
+    string25 gameState2 : 0x128DD50, 0xC8, 0x490, 0xBA;
+    string25 gameState3 : 0x128DD50, 0xC8, 0x490, 0x102;
 }
 
 startup
@@ -26,7 +25,7 @@ update
     vars.doSplit = false;
     vars.doStart = false;
 
-    // reset chapter on both manual start or auto start (if it ever gets added)
+    // reset chapter on both manual start or auto start
     if (timer.CurrentPhase == TimerPhase.Running && vars.prevPhase == TimerPhase.NotRunning)
     {
         vars.chapter = 1;
