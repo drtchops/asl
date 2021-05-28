@@ -3,7 +3,6 @@
 // Thank you rythin_sr for the advice, Drake_Shadow and JustSayKuro for initial testing.
 // Description: https://pastebin.com/uTDJEGCk
 // Load remover by DrTChops
-// v1.0 (2021-05-24)
 
 state("Yakuza0")
 {
