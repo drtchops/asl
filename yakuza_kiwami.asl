@@ -5,9 +5,12 @@
 state("YakuzaKiwami")
 {
     int loadState : 0x19D5050, 0x1E8, 0x4A0, 0x4A0, 0x310, 0x1EDC;
-    string25 gameState1 : 0x128DD50, 0xC8, 0x490, 0x72;
-    string25 gameState2 : 0x128DD50, 0xC8, 0x490, 0xBA;
-    string25 gameState3 : 0x128DD50, 0xC8, 0x490, 0x102;
+    string25 gameState0 : 0x128DD50, 0xC8, 0x490, 0x72;
+    string25 gameState1 : 0x128DD50, 0xC8, 0x490, 0xBA;
+    string25 gameState2 : 0x128DD50, 0xC8, 0x490, 0x102;
+    string25 gameState3 : 0x128DD50, 0xC8, 0x490, 0x14A;
+    string25 gameState4 : 0x128DD50, 0xC8, 0x490, 0x192;
+    string25 gameState5 : 0x128DD50, 0xC8, 0x490, 0x1DA;
 }
 
 startup
@@ -15,9 +18,7 @@ startup
     vars.isLoading = false;
     vars.doSplit = false;
     vars.doStart = false;
-    vars.chapter = 1;
-    vars.prevPhase = timer.CurrentPhase;
-    vars.prevState = "";
+    vars.prevChapterDisplay = false;
 }
 
 update
@@ -26,32 +27,25 @@ update
     vars.doSplit = false;
     vars.doStart = false;
 
-    // reset chapter on both manual start or auto start
-    if (timer.CurrentPhase == TimerPhase.Running && vars.prevPhase == TimerPhase.NotRunning)
-    {
-        vars.chapter = 1;
-    }
-    vars.prevPhase = timer.CurrentPhase;
+    bool chapterDisplay = false;
 
-    if (current.gameState1 != "")
+    if (current.gameState0 == "pjcm_syotitle.sbb" ||
+        current.gameState1 == "pjcm_syotitle.sbb" ||
+        current.gameState2 == "pjcm_syotitle.sbb" ||
+        current.gameState3 == "pjcm_syotitle.sbb" ||
+        current.gameState4 == "pjcm_syotitle.sbb" ||
+        current.gameState5 == "pjcm_syotitle.sbb")
     {
-        vars.prevState = current.gameState1;
+        chapterDisplay = true;
     }
 
-    if (vars.prevState == "pjcm_title_ps3_c.sbb" && current.gameState3 == "pjcm_syotitle.sbb")
+    if (chapterDisplay && !vars.prevChapterDisplay)
     {
+        vars.doSplit = true;
         vars.doStart = true;
     }
 
-    if (current.gameState1 == "pjcm_syotitle.sbb" && old.gameState1 != "pjcm_syotitle.sbb")
-    {
-        vars.chapter++;
-        vars.doSplit = true;
-    }
-    else if (vars.chapter == 9 && current.gameState2 == "pjcm_syotitle.sbb" && old.gameState2 != "pjcm_syotitle.sbb")
-    {
-        vars.doSplit = true;
-    }
+    vars.prevChapterDisplay = chapterDisplay;
 }
 
 start
