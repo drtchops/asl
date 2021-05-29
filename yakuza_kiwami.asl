@@ -11,6 +11,7 @@ state("YakuzaKiwami")
     string25 gameState3 : 0x128DD50, 0xC8, 0x490, 0x14A;
     string25 gameState4 : 0x128DD50, 0xC8, 0x490, 0x192;
     string25 gameState5 : 0x128DD50, 0xC8, 0x490, 0x1DA;
+    int mainEnemyHealth : 0x10D9488, 0x78, 0x108, 0x10C;
 }
 
 startup
@@ -19,6 +20,8 @@ startup
     vars.doSplit = false;
     vars.doStart = false;
     vars.prevChapterDisplay = false;
+    vars.nishikiStarted = false;
+    vars.prevPhase = timer.CurrentPhase;
 }
 
 update
@@ -26,6 +29,12 @@ update
     vars.isLoading = current.loadState == 1;
     vars.doSplit = false;
     vars.doStart = false;
+
+    if (timer.CurrentPhase == TimerPhase.Running && vars.prevPhase == TimerPhase.NotRunning)
+    {
+        vars.nishikiStarted = false;
+    }
+    vars.prevPhase = timer.CurrentPhase;
 
     bool chapterDisplay = false;
 
@@ -38,14 +47,21 @@ update
     {
         chapterDisplay = true;
     }
-
     if (chapterDisplay && !vars.prevChapterDisplay)
     {
         vars.doSplit = true;
         vars.doStart = true;
     }
-
     vars.prevChapterDisplay = chapterDisplay;
+
+    if (!vars.nishikiStarted && current.loadState == -1 && current.mainEnemyHealth == 7500)
+    {
+        vars.nishikiStarted = true;
+    }
+    else if (vars.nishikiStarted && old.mainEnemyHealth > 0 && current.mainEnemyHealth == 0)
+    {
+        vars.doSplit = true;
+    }
 }
 
 start
