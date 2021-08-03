@@ -7,9 +7,11 @@
 // Instagibz
 // blairmadison11
 // heny
+// Meta
 // probably more
 
 //===NOTES AND CHANGELOG===//
+//Meta                          @03\08/21:  Added popup that detects real time & asks if you want game time comparison. Added livesplit cycle fix that otherwise starts timer @ 0.00 - 0.06 
 //heny                          @21\08\20:  Added setting to optionally split at the end of the intro section
 //heny                          @21\08\20:  Updated the splitter for the latest 6,1,1,321 version to support OpenGL + added setting to optionally split between Lazarus Labs 1 & 2
 //Glurmo                        @23\01\19:  Removed steam api ("tier0_s64.dll") dependency to prevent steam client updates breaking autosplitter + Add NG+ support
@@ -212,6 +214,9 @@ state("DOOMx64vk", "6, 1, 1, 321") {
 }
 
 startup {
+    vars.TimerStart = (EventHandler) ((s, e) => timer.IsGameTimePaused = true);
+    timer.OnStart += vars.TimerStart;
+//^ Ensures the timer starts at 0.00, thanks Gelly for this
     vars.readOffset = (Func<Process, IntPtr, int, int, IntPtr>)((proc, ptr, offsetSize, remainingBytes) => {
         byte[] offsetBytes;
         if (ptr == IntPtr.Zero || !proc.ReadBytes(ptr, offsetSize, out offsetBytes)) {
@@ -234,6 +239,22 @@ startup {
         }
 
         return ptr + offsetSize + remainingBytes + offset;
+
+	if (timer.CurrentTimingMethod == TimingMethod.RealTime) // Pops up if real time comparison is detected, asking if you want to switch to Game Time. Thanks Micrologist for this.
+        {        
+        var timingMessage = MessageBox.Show (
+               "This game uses Time without Loads (Game Time) as the main timing method.\n"+
+                "LiveSplit is currently set to show Real Time (RTA).\n"+
+                "Would you like to set the timing method to Game Time? This will make verification easier",
+                "LiveSplit | DOOM 2016",
+               MessageBoxButtons.YesNo,MessageBoxIcon.Question
+            );
+        
+            if (timingMessage == DialogResult.Yes)
+            {
+                timer.CurrentTimingMethod = TimingMethod.GameTime;
+            }
+        }
     });
 
     settings.Add("optionalSplits", false, "Optional Splits (Game Version 6, 1, 1, 321)");
@@ -422,3 +443,7 @@ split {
 }
 
 isLoading { return current.isLoading; }
+
+shutdown{
+    timer.OnStart -= vars.TimerStart;
+}
