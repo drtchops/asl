@@ -49,10 +49,13 @@ state("Dishonored2_x64ShippingRetail", "1.9")
 {
     // 1.77.9.0
     // 113065984
-    bool isLoading : 0x49C41DC;
-    float x : 0x51f57d4;
-    float y : 0x51f57d8;
-    float z : 0x51f57dc;
+    bool isLoading : 0x4A685A8;
+    //float x : 0x51f57d4; 
+    //float y : 0x51f57d8;
+    //float z : 0x51f57dc; //cam co-ords, not player
+	float x : 0x48A3318, 0x10, 0x330, 0x78;  //player pos from arkPlayer object
+    float y : 0x48A3318, 0x10, 0x330, 0x7c;
+    float z : 0x48A3318, 0x10, 0x330, 0x80;
     string128 levelName : 0x5841040;
     float screenFade : 0x61c7b50, 0, 8, 0x7DC;
     uint interaction : 0x4A10448, 0x6D0, 0x10, 0xa0, 0x88, 0x80, 4;
