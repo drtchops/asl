@@ -45,14 +45,14 @@ state("Dishonored2", "1.9")
     uint canInteract : 0x288D608, 0x1F6EE8, 0x13B0, 0x0;
 }
 
-state("Dishonored2_x64ShippingRetail", "1.9")
+state("Dishonored2_x64ShippingRetail", "1.9ms")
 {
     // 1.77.9.0
     // 113065984
     bool isLoading : 0x4A685A8;
-    //float x : 0x51f57d4; 
-    //float y : 0x51f57d8;
-    //float z : 0x51f57dc; //cam co-ords, not player
+    //float x : 0x51f57d4; //camx
+    //float y : 0x51f57d8; //camy
+    //float z : 0x51f57dc; //camz
 	float x : 0x48A3318, 0x10, 0x330, 0x78;  //player pos from arkPlayer object
     float y : 0x48A3318, 0x10, 0x330, 0x7c;
     float z : 0x48A3318, 0x10, 0x330, 0x80;
@@ -94,7 +94,7 @@ startup {
 init
 {
     switch (modules.First().ModuleMemorySize) {
-		case 113065984: // Windows Store
+		case 113065984: version = "1.9ms"; break;  // Windows Store
         case  70369280: version = "1.9"; break;
         case 163115008: version = "1.4"; break;
         case 166068224: version = "1.3"; break;
@@ -138,7 +138,7 @@ update
         // Check if inside starting area.
             posX-delta < current.x && current.x < posX+delta &&
             posY-delta < current.y && current.y < posY+delta &&
-            posZ-delta < current.z && current.z < posZ+2;
+            posZ-delta < current.z && current.z < posZ+delta;
 
         if(vars.runStarting){
             for (vars.autoSplitIndex = 0;vars.autoSplitIndex < vars.autoSplits.Length;++vars.autoSplitIndex) {
