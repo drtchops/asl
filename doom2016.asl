@@ -8,10 +8,13 @@
 // blairmadison11
 // heny
 // Meta
+// SabuilneHorizon
 // probably more
 
 //===NOTES AND CHANGELOG===//
-//Meta                          @03\08/21:  Added popup that detects real time & asks if you want game time comparison. Added livesplit cycle fix that otherwise starts timer @ 0.00 - 0.06 
+
+//SabulineHorizon               @08\12\21:  Added Auto-Reset, added split for Spider Mastermind Skip, fixed timer start delays, fixed optional intro split bug, fixed random intro timer starts, fixed UN start split
+//Meta                          @03\08\21:  Added popup that detects real time & asks if you want game time comparison. Added livesplit cycle fix that otherwise starts timer @ 0.00 - 0.06 
 //heny                          @21\08\20:  Added setting to optionally split at the end of the intro section
 //heny                          @21\08\20:  Updated the splitter for the latest 6,1,1,321 version to support OpenGL + added setting to optionally split between Lazarus Labs 1 & 2
 //Glurmo                        @23\01\19:  Removed steam api ("tier0_s64.dll") dependency to prevent steam client updates breaking autosplitter + Add NG+ support
@@ -192,10 +195,19 @@ state("DOOMx64vk", "6, 1, 1, 818") {
 // 2018-03-29 Patch (Latest, OpenGL)
 state("DOOMx64", "6, 1, 1, 321") {
     float bossHealth: 0x036F9E08, 0x30, 0x4D0, 0x420, 0x2F8, 0x20, 0x2F0, 0x1B4;
+	float playerX: 0x41C16C8;
+	float playerY: 0x41C16CC;
+	float playerZ: 0x41C16C0;
     bool start: 0x427EA00;
     bool canStart: 0x2E4A378;
     bool finalHit: 0x3E59794;
     bool isLoading: 0x41434D9;
+	bool menuOpen: 0x3E57624; //need to verify
+	byte menuSelection: 0x04280338, 0x4D0, 0x10, 0x1B8, 0x1A4; //0-Resume, 1-Settings , 2-Load Checckpoint , 3-Restart Mission , 4-Exit to Main Menu , 5-Exit to Desktop
+	byte deathReset: 0x427ECBA; //44 when death menu appears, and 36 when resetting
+	byte difficulty: 0x490F380; //0-I'm Too Young To Die, 1-Hurt Me Plenty, 2-Ultra-Violence, 3-Nightmare 4 = Ultra-Nightmare
+	int checkpointCounter: 0x40FE988;
+	int finalCutscene: 0x4C3ED68;
 
     string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
     string60 mapFile: 0x415FE15;
@@ -204,17 +216,27 @@ state("DOOMx64", "6, 1, 1, 321") {
 // 2018-03-29 Patch (Latest, Vulkan)
 state("DOOMx64vk", "6, 1, 1, 321") {
     float bossHealth: 0x307EF08, 0x2CD80, 0x2B78;
+	float playerX: 0x58C27F8;
+	float playerY: 0x58C27FC;
+	float playerZ: 0x58C27F0;
     bool start: 0x597FCD0;
     bool canStart: 0x56BF5D8;
     bool finalHit: 0x5557504;
     bool isLoading: 0x5845A29;
-
+	bool menuOpen: 0x5555364;
+	byte menuSelection: 0x5981608, 0x4D0, 0x10, 0x1B8, 0x1A4; //0-Resume, 1-Settings , 2-Load Checckpoint , 3-Restart Mission , 4-Exit to Main Menu , 5-Exit to Desktop
+	byte deathReset: 0x597FF8A; //44 when death menu appears, and 36 when resetting
+	byte difficulty: 0x6011070; //0-I'm Too Young To Die, 1-Hurt Me Plenty, 2-Ultra-Violence, 3-Nightmare 4 = Ultra-Nightmare
+	int checkpointCounter: 0x57FC388;
+	int finalCutscene: 0x6338518;
+	
     string35 mapName: "tier0_s64.dll", 0x58180, 0x17;
     string60 mapFile: 0x5862785;
 }
 
 startup {
-    vars.TimerStart = (EventHandler) ((s, e) => timer.IsGameTimePaused = true);
+	vars.TimerStart = (EventHandler) ((s, e) => timer.IsGameTimePaused = true);
+
     timer.OnStart += vars.TimerStart;
 //^ Ensures the timer starts at 0.00, thanks Gelly for this
     vars.readOffset = (Func<Process, IntPtr, int, int, IntPtr>)((proc, ptr, offsetSize, remainingBytes) => {
@@ -260,9 +282,11 @@ startup {
     settings.Add("optionalSplits", false, "Optional Splits (Game Version 6, 1, 1, 321)");
     settings.Add("splitForIntro", false, "Intro", "optionalSplits");
     settings.Add("splitForLazarusLabs1", false, "Lazarus Labs 1", "optionalSplits");
+	settings.Add("noCheckpointResets", false, "No checkpoint reset");
     settings.SetToolTip("optionalSplits", "Optionally split for special situations/in special locations (currently only working on game version 6, 1, 1, 321)");
     settings.SetToolTip("splitForIntro", "Split when smashing the elevator button panel in the intro section");
     settings.SetToolTip("splitForLazarusLabs1", "Split at the end of the first part of Lazarus Labs");
+    settings.SetToolTip("noCheckpointResets", "Do not reset the timer when reloading checkpoint at the start of Intro");
 
     vars.visitedMapFiles = new List<string>();
     vars.introMapFile = "game/sp/intro/intro"; // UAC
@@ -284,53 +308,36 @@ startup {
 
 init {
     vars.hasSplitForIntro = false;
-
-    vars.playerPosPtr = 0;
-    vars.playerX = 0.0;
-    vars.playerY = 0.0;
-    vars.playerZ = 0.0;
-
+	vars.resetType = 0;
+	vars.checkpointCounterStart = 0;
+	vars.pauseStart = false;
+	vars.endCutsceneTriggered = false;
+	
     var firstModule = modules.First();
     version = firstModule.FileVersionInfo.FileVersion;
-
-    if (version == "6, 1, 1, 321") {
-        // Delay signature scanning slightly to wait for the game's memory to be properly accessible
-        vars.sigScanDelay = new System.Threading.Timer(_ => {
-            var playerSigTarget = new SigScanTarget(3, "48 03 0D ?? ?? ?? ?? 39 01");
-            var sigScanner = new SignatureScanner(game, firstModule.BaseAddress, firstModule.ModuleMemorySize);
-            var playerSigPtr = sigScanner.Scan(playerSigTarget);
-            vars.playerSigAddr = vars.readOffset(game, playerSigPtr, sizeof(int), 0);
-        }, null, 3000, Timeout.Infinite);
-    }
-
     print(version);
 }
 
 update {
-    if (version == "6, 1, 1, 321" && settings["splitForIntro"]) { // Untested for other versions at the moment
-        if (old.isLoading && !current.isLoading) {
-            var playerBasePtr = new DeepPointer(vars.playerSigAddr, 0x8, 0x808, 0x1AB8);
-            IntPtr playerPosPtr;
-            playerBasePtr.DerefOffsets(game, out playerPosPtr);
-            vars.playerPosPtr = playerPosPtr;
-        }
-
-        if (timer.CurrentPhase == TimerPhase.Running && !vars.hasSplitForIntro && !current.isLoading) {
-            vars.playerX = memory.ReadValue<float>((IntPtr)vars.playerPosPtr);
-            vars.playerY = memory.ReadValue<float>((IntPtr)vars.playerPosPtr + 4);
-            vars.playerZ = memory.ReadValue<float>((IntPtr)vars.playerPosPtr + 8);
-        }
-    }
+	if (version == "6, 1, 1, 321") { // Latest patch
+		
+		if (vars.pauseStart){
+			vars.pauseStart = current.menuOpen;
+		}
+	}
 }
 
 exit {
     timer.IsGameTimePaused = true;
-    vars.sigScanDelay.Dispose();
 }
 
 start {
     vars.hasSplitForIntro = false;
     vars.visitedMapFiles = new List<string>();
+	vars.pauseStart = false;
+	vars.resetType = 0;
+	vars.checkpointCounterStart = 0;
+	vars.endCutsceneTriggered = false;
 
     if (settings["splitForLazarusLabs1"]) {
         vars.mapFileSplits.Add("game/sp/lazarus_2/lazarus_2");
@@ -356,8 +363,7 @@ start {
             current.canStart &&
             current.mapName.Contains("The UAC")
         );
-    } else if (version == "6, 1, 1, 818" || version == "6, 1, 1, 321") {
-        // Latest 2 patches
+    } else if (version == "6, 1, 1, 818") {
         return (
             !current.isLoading &&
             !old.start &&
@@ -365,8 +371,69 @@ start {
             current.canStart &&
             current.mapFile == vars.introMapFile
         );
+    } else if (version == "6, 1, 1, 321") { // Latest patch
+	
+		//If we're starting UN instead of another difficulty
+		if (old.isLoading && !current.isLoading && (current.difficulty == 4)){
+			Thread.Sleep(3560);
+			return (
+				((current.playerX - (-10200.00)) < 0.1) &&
+				((current.playerY - (-2624.00)) < 0.1) &&
+				((current.playerZ - (9540.00)) < 6)
+			);
+		}
+		if (
+			//reload checkpoint or failed restart mission
+			current.mapFile == vars.introMapFile &&
+			((old.isLoading &&
+			!current.isLoading &&
+			((current.playerX - (-18101.34)) < 0.5) &&
+			((current.playerY - (-2782.34)) < 0.5) &&
+			((current.playerZ - (3076.90)) < 0.5))
+			| //new game or restart mission
+			(!current.isLoading &&
+			!old.start &&
+			current.start &&
+			((current.playerX - (-18029.99)) < 0.5) &&
+			((current.playerY - (-2736.30)) < 0.5) &&
+			((current.playerZ - (3073.49)) < 0.5)
+			))
+		){
+			vars.checkpointCounterStart = current.checkpointCounter;
+			vars.pauseStart = true; //pause timer on start if menu is open during loading (usually caused by alt+tabbing during load)
+			return true;
+		}
     }
 }
+
+reset {
+	if (version == "6, 1, 1, 321") { // Latest patch
+		if (current.difficulty == 4){
+			//UN difficulty
+			return (
+				(old.deathReset == 44) &&
+				(current.deathReset == 36)
+			);
+		} else {
+			//Other difficulty
+			if (current.menuSelection == 2){ vars.resetType = 2;}
+			else if (current.menuSelection == 3){ vars.resetType = 3;}
+			return (
+				current.mapFile == "game/sp/intro/intro" &&
+				!old.isLoading &&
+				current.isLoading &&
+				(((current.menuSelection == 2 |
+				((old.deathReset == 44) &&
+				(current.deathReset == 36))) &&
+				!settings["noCheckpointResets"] &&
+				(current.checkpointCounter == vars.checkpointCounterStart)
+				)|
+				(current.menuSelection == 3
+				))
+			);
+		}
+	}
+} 
 
 split {
     if (version == "6, 1, 1, 527") {
@@ -407,10 +474,9 @@ split {
             !current.finalHit &&
             current.bossHealth == 1
         );
-    } else if (version == "6, 1, 1, 818" || version == "6, 1, 1, 321") {
-        // Latest 2 patches (2018-03-29, 2017-08-24)
+    } else if (version == "6, 1, 1, 818") {
+        // Previous patch (2017-08-24)
         bool finalSplit = !current.finalHit && current.bossHealth == 1;
-
         bool levelSplit = !String.IsNullOrEmpty(current.mapFile) &&
             !String.IsNullOrEmpty(old.mapFile) &&
             old.mapFile != current.mapFile &&
@@ -424,12 +490,29 @@ split {
             // Track to prevent splitting twice in 100%
             vars.visitedMapFiles.Add(current.mapFile);
             return true;
-        }  else if (version == "6, 1, 1, 321") {
+        }
+        return false;
+    } else if (version == "6, 1, 1, 321") {
+		// Latest patch (2018-03-29)
+        bool finalSplit = !current.finalHit && current.bossHealth == 1;
+        bool levelSplit = !String.IsNullOrEmpty(current.mapFile) &&
+            !String.IsNullOrEmpty(old.mapFile) &&
+            old.mapFile != current.mapFile &&
+            current.isLoading &&
+            !old.mapFile.Contains("challenges/") &&
+            vars.mapFileSplits.Contains(current.mapFile);
+        if (finalSplit) {
+            return true;
+        } else if (levelSplit && !vars.visitedMapFiles.Contains(current.mapFile)) {
+            // Track to prevent splitting twice in 100%
+            vars.visitedMapFiles.Add(current.mapFile);
+            return true;
+        }  else if (current.mapFile == "game/sp/intro/intro") {
             if (!vars.hasSplitForIntro && settings["splitForIntro"]) { // Optional intro split when smashing the panel
                 bool inUAC = current.mapFile.Equals("game/sp/intro/intro");
-                bool correctIntroSplitXPos = Math.Abs(vars.playerX - (-10152.54)) < 0.1;
-                bool correctIntroSplitYPos = Math.Abs(vars.playerY - (-2685.575)) < 0.1;
-                bool correctIntroSplitZPos = Math.Abs(vars.playerZ - 3148.311) < 0.1;
+                bool correctIntroSplitXPos = Math.Abs(current.playerX - (-10152.54)) < 0.1;
+                bool correctIntroSplitYPos = Math.Abs(current.playerY - (-2685.575)) < 0.1;
+                bool correctIntroSplitZPos = Math.Abs(current.playerZ - 3148.311) < 0.1;
                 bool correctIntroSplitPos = correctIntroSplitXPos && correctIntroSplitYPos && correctIntroSplitZPos;
 
                 if (inUAC && correctIntroSplitPos) {
@@ -437,12 +520,33 @@ split {
                     return true;
                 }
             }
-        }
+        } else if (current.mapFile == "game/sp/titan/titan") {
+			//Spider Mastermind Skip
+			if (
+				//need to look in the game scripts to get a more precise trigger location
+				(current.playerX > -80) &&
+				(current.playerX < 215) &&
+				(current.playerY > -80) &&
+				(current.playerY < 215) &&
+				(current.playerZ > -10080) &&
+				(current.playerZ < -9800)
+			){
+				vars.endCutsceneTriggered = true;
+			}
+			if (
+				(current.finalCutscene == 5) &&
+				(old.finalCutscene != 5) &&
+				vars.endCutsceneTriggered
+			){
+				return true;
+			}
+		} else if (current.isLoading && vars.endCutsceneTriggered) {vars.endCutsceneTriggered = false;}
+
         return false;
     }
 }
 
-isLoading { return current.isLoading; }
+isLoading { return (current.isLoading | vars.pauseStart); }
 
 shutdown{
     timer.OnStart -= vars.TimerStart;
