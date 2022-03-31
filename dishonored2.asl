@@ -45,6 +45,24 @@ state("Dishonored2", "1.9")
     uint canInteract : 0x288D608, 0x1F6EE8, 0x13B0, 0x0;
 }
 
+state("Dishonored2_x64ShippingRetail", "1.9ms")
+{
+    // 1.77.9.0
+    // 113065984
+    bool isLoading : 0x4A685A8;
+    //float x : 0x51f57d4; //camx
+    //float y : 0x51f57d8; //camy
+    //float z : 0x51f57dc; //camz
+	float x : 0x48A3318, 0x10, 0x330, 0x78;  //player pos from arkPlayer object
+    float y : 0x48A3318, 0x10, 0x330, 0x7c;
+    float z : 0x48A3318, 0x10, 0x330, 0x80;
+    string128 levelName : 0x5841040;
+    float screenFade : 0x61c7b50, 0, 8, 0x7DC;
+    uint interaction : 0x4A10448, 0x6D0, 0x10, 0xa0, 0x88, 0x80, 4;
+    uint canInteract : 0x4A10448, 0x6D0, 0x10, 0xa0, 0x13b0, 0;
+}
+
+
 startup {
     // "campaign/bunker/bunker_p_lowchaos" is used before killing/darting stilton regardless of chaos
     // "campaign/bunker/bunker_p_highchaos" is used after regardless of chaos
@@ -76,6 +94,7 @@ startup {
 init
 {
     switch (modules.First().ModuleMemorySize) {
+		case 113065984: version = "1.9ms"; break;  // Windows Store
         case  70369280: version = "1.9"; break;
         case 163115008: version = "1.4"; break;
         case 166068224: version = "1.3"; break;
@@ -84,6 +103,8 @@ init
 
     // print(modules.First().FileVersionInfo.FileVersion);
     // print(modules.First().ModuleMemorySize.ToString());
+	
+	
 
     if (vars.autoSplitIndex == -1) {
         for (vars.autoSplitIndex = 0;vars.autoSplitIndex < vars.autoSplits.Length;++vars.autoSplitIndex) {
