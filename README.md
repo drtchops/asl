@@ -23,28 +23,33 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 
 ## Supported Games
 
-- Bioshock Trilogy (by MrWalrus, Glurmo, Dread, and me)
 - Cornerstone: The Song of Tyrim (by Dalet)
 - Deus Ex: Mankind Divided
 - Dishonored 2 (by Some1Lse and me)
 - Doom (2016) (by a lot of people)
-- Dragon Age: Origins (by Letterswords)
 - Dragon Age 2
-- Fallout Anthology
-- Fallout 3
-- Fallout: New Vegas
 - Judge Dredd: Dredd vs. Death
 - Lego Batman: The Videogame
 - Mass Effect
-- Penumbra: Black Plague
-- Resident Evil 4 (by LetsGetPitted)
 - Rot Gut
 - The Elder Scrolls: Anthology
 - The Elder Scrolls III: Morrowind (by Sychotix, Fatalis, and me)
-- The Elder Scrolls IV: Oblivion (by TheFuncanon and me)
 - Shadow Warrior 2 (by Tsiggie, marysiamzawka, and me)
-- Titanfall 2
 - Wolfenstein: The New Order
 - Wolfenstein: The Old Blood
 - Yakuza 0 (by ToxicTT and me)
 - Yakuza Kiwami (by ToxicTT and me)
+
+## No longer supported
+
+These scripts have been replaced by work from other people and are no longer supported.
+
+- Bioshock Trilogy (by MrWalrus, Glurmo, Dread, and me)
+- Dragon Age: Origins (by Letterswords)
+- Fallout Anthology
+- Fallout 3
+- Fallout: New Vegas
+- Penumbra: Black Plague
+- Resident Evil 4 (by LetsGetPitted)
+- The Elder Scrolls IV: Oblivion (by TheFuncanon and me)
+- Titanfall 2
