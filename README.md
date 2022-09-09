@@ -1,6 +1,6 @@
 # asl
 
-LiveSplit ASL scripts for load removal and autosplitting for various PC games.
+LiveSplit ASL scripts for load removal and autosplitting for Dishonored 2.
 
 ## Usage
 
@@ -21,35 +21,7 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 - Make sure .NET 4.5 is installed: https://www.microsoft.com/en-ca/download/details.aspx?id=30653
 - If all else fails, reboot.
 
-## Supported Games
+## Gamepass vs Windows Store
+- if you are running the Windows store version of Dishonored 2, make sure to uncheck the "Gamepass support" checkmark in the options.
 
-- Cornerstone: The Song of Tyrim (by Dalet)
-- Deus Ex: Mankind Divided
-- Dishonored 2 (by Some1Lse and me)
-- Doom (2016) (by a lot of people)
-- Dragon Age 2
-- Judge Dredd: Dredd vs. Death
-- Lego Batman: The Videogame
-- Mass Effect
-- Rot Gut
-- The Elder Scrolls: Anthology
-- The Elder Scrolls III: Morrowind (by Sychotix, Fatalis, and me)
-- Shadow Warrior 2 (by Tsiggie, marysiamzawka, and me)
-- Wolfenstein: The New Order
-- Wolfenstein: The Old Blood
-- Yakuza 0 (by ToxicTT and me)
-- Yakuza Kiwami (by ToxicTT and me)
-
-## No longer supported
-
-These scripts have been replaced by work from other people and are no longer supported.
-
-- Bioshock Trilogy (by MrWalrus, Glurmo, Dread, and me)
-- Dragon Age: Origins (by Letterswords)
-- Fallout Anthology
-- Fallout 3
-- Fallout: New Vegas
-- Penumbra: Black Plague
-- Resident Evil 4 (by LetsGetPitted)
-- The Elder Scrolls IV: Oblivion (by TheFuncanon and me)
-- Titanfall 2
+by DrTChops, Some1Lse and HuthTV
