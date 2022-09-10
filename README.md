@@ -1,3 +1,5 @@
+**These scripts are no longer maintained. If something needs to be updated, fork the repo or copy the script somewhere else, host it yourself, and point livesplit to the new version.**
+
 # asl
 
 LiveSplit ASL scripts for load removal and autosplitting for various PC games.
