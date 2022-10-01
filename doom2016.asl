@@ -8,7 +8,7 @@
 // blairmadison11
 // heny
 // Meta
-// SabuilneHorizon
+// SabulineHorizon
 // probably more
 
 //===NOTES AND CHANGELOG===//
@@ -215,7 +215,7 @@ state("DOOMx64", "6, 1, 1, 321") {
 
 // 2018-03-29 Patch (Latest, Vulkan)
 state("DOOMx64vk", "6, 1, 1, 321") {
-    float bossHealth: 0x307EF08, 0x2CD80, 0x2B78;
+    float bossHealth: 0x2DFC3A0, 0x2AA60, 0x2CD80, 0x2B78;
 	float playerX: 0x58C27F8;
 	float playerY: 0x58C27FC;
 	float playerZ: 0x58C27F0;
