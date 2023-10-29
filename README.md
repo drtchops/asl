@@ -1,8 +1,8 @@
-**These scripts are no longer maintained. If something needs to be updated, fork the repo or copy the script somewhere else, host it yourself, and point livesplit to the new version.**
+# Dishonored 2 ASL Load remover and auto splitter
 
-# asl
+LiveSplit ASL scripts for load removal and autosplitting for Dishonored 2. 
 
-LiveSplit ASL scripts for load removal and autosplitting for Dishonored 2.
+Feel free to fork, update and modify https://github.com/LiveSplit/LiveSplit.AutoSplitters/edit/master/LiveSplit.AutoSplitters.xml to point to your fork if needed.
 
 ## Usage
 
@@ -26,4 +26,4 @@ If the plguin doesn't appear in LiveSplit automatically then you must download t
 ## Gamepass vs Windows Store
 - if you are running the Windows store version of Dishonored 2, make sure to uncheck the "Gamepass support" checkmark in the options.
 
-by DrTChops, Some1Lse and HuthTV
+by DrTChops, Some1Lse, HuthTV and Elvyndir
