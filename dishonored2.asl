@@ -185,7 +185,10 @@ split
         // 0x9C673C93 is the id (possibly a hash) for "Revive your father", 0xA2674605 is for "Revive your daughter".
         bool isFinalInteraction = (current.interaction == 0x9C673C93 || current.interaction == 0xA2674605);
 
-        if(isFadingOut && canInteract && isFinalInteraction) {
+        if( isFadingOut && 
+            // canInteract && (Removing canInteract because new skip doesn't allow this var to be set in time)
+            isFinalInteraction
+        ) {
             ++vars.autoSplitIndex;
             return true;
         }
