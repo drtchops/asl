@@ -118,14 +118,13 @@ init
         case  70369280: version = "1.9"; break;
         case 163115008: version = "1.4"; break;
         case 166068224: version = "1.3"; break;
+	case  70189056: version = "1.9"; break;
+
         default:        version = ""; break;
     }
 
     // print(modules.First().FileVersionInfo.FileVersion);
     // print(modules.First().ModuleMemorySize.ToString());
-	
-	
-
     if (vars.autoSplitIndex == -1) {
         for (vars.autoSplitIndex = 0;vars.autoSplitIndex < vars.autoSplits.Length;++vars.autoSplitIndex) {
             if (settings["autosplit_"+vars.autoSplitIndex.ToString()]) {
