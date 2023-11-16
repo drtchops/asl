@@ -62,6 +62,20 @@ state("Dishonored2_x64ShippingRetail", "1.9ms")
     uint canInteract : 0x4A10448, 0x6D0, 0x10, 0xa0, 0x13b0, 0;
 }
 
+state("Dishonored2_x64ShippingRetail", "1.9gp")
+{
+    // 1.77.9.0
+    // 113065984
+    bool isLoading : 0x4A685A8;
+	float x : 0x045F7C40, 0x8, 0x8, 0x10, 0x268, 0xE0, 0x3C;
+	float y : 0x045F7C40, 0x8, 0x8, 0x250, 0x268, 0xE0, 0x40;
+	float z : 0x045F7C40, 0x8, 0x8, 0x250, 0x268, 0xE0, 0x44;
+    string128 levelName : 0x5841040;
+    float screenFade : 0x61c7b50, 0, 8, 0x7DC;
+    uint interaction : 0x4A10448, 0x6D0, 0x10, 0xa0, 0x88, 0x80, 4;
+    uint canInteract : 0x4A10448, 0x6D0, 0x10, 0xa0, 0x13b0, 0;
+}
+
 
 startup {
     // "campaign/bunker/bunker_p_lowchaos" is used before killing/darting stilton regardless of chaos
@@ -87,6 +101,8 @@ startup {
     }
 
     settings.Add("autosplit_end",true,"Split on run end");
+    settings.Add("gamepass_support",true,"Game pass support");
+    settings.SetToolTip("gamepass_support", "When unchecked support \"Windows Store\" version instead");
 
     vars.autoSplitIndex = -1;
 }
@@ -94,18 +110,21 @@ startup {
 init
 {
     switch (modules.First().ModuleMemorySize) {
-		case 113065984: version = "1.9ms"; break;  // Windows Store
+		case 113065984: 
+				if(settings["gamepass_support"])
+				{ version = "1.9gp"; break; } // Gamepass version
+				else
+				{ version = "1.9ms"; break; } // Windows Store
         case  70369280: version = "1.9"; break;
         case 163115008: version = "1.4"; break;
         case 166068224: version = "1.3"; break;
+	case  70189056: version = "1.9"; break;
+
         default:        version = ""; break;
     }
 
     // print(modules.First().FileVersionInfo.FileVersion);
     // print(modules.First().ModuleMemorySize.ToString());
-	
-	
-
     if (vars.autoSplitIndex == -1) {
         for (vars.autoSplitIndex = 0;vars.autoSplitIndex < vars.autoSplits.Length;++vars.autoSplitIndex) {
             if (settings["autosplit_"+vars.autoSplitIndex.ToString()]) {
@@ -185,7 +204,10 @@ split
         // 0x9C673C93 is the id (possibly a hash) for "Revive your father", 0xA2674605 is for "Revive your daughter".
         bool isFinalInteraction = (current.interaction == 0x9C673C93 || current.interaction == 0xA2674605);
 
-        if(isFadingOut && canInteract && isFinalInteraction) {
+        if( isFadingOut && 
+            // canInteract && (Removing canInteract because new skip doesn't allow this var to be set in time)
+            isFinalInteraction
+        ) {
             ++vars.autoSplitIndex;
             return true;
         }
